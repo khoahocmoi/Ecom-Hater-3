@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quy trình đánh giá sản phẩm Dropship — Quang Vinh</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap');
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Be Vietnam Pro', sans-serif;
+    background: #f5f4f1;
+    color: #1a1a1a;
+    min-height: 100vh;
+    padding: 40px 20px 80px;
+  }
+
+  .container { max-width: 700px; margin: 0 auto; }
+
+  h1 { font-size: 20px; font-weight: 700; text-align: center; margin-bottom: 6px; letter-spacing: -0.3px; }
+  .subtitle { text-align: center; font-size: 13px; color: #888; margin-bottom: 32px; }
+
+  .input-pill {
+    background: #fff; border: 1.5px solid #ddd; border-radius: 50px;
+    text-align: center; padding: 12px 32px; font-size: 14px; font-weight: 600;
+    color: #555; margin: 0 auto 4px; display: block; width: fit-content;
+  }
+
+  .arrow { display: flex; justify-content: center; margin: 4px 0; color: #bbb; font-size: 22px; }
+
+  /* ── Step card ── */
+  .step-wrapper { position: relative; margin-bottom: 4px; }
+
+  .step {
+    border-radius: 12px; padding: 18px 24px;
+    cursor: pointer; transition: transform 0.15s, box-shadow 0.15s;
+    border: 1.5px solid transparent; user-select: none;
+  }
+  .step:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(0,0,0,0.10); }
+  .step.active { box-shadow: 0 8px 32px rgba(0,0,0,0.13); }
+
+  .step-header { display: flex; align-items: center; justify-content: space-between; }
+  .step-title { font-size: 15px; font-weight: 700; text-align: center; flex: 1; }
+  .step-chevron { font-size: 14px; opacity: 0.5; transition: transform 0.2s; flex-shrink: 0; }
+  .step.active .step-chevron { transform: rotate(180deg); }
+  .step-desc { font-size: 12.5px; line-height: 1.75; text-align: center; opacity: 0.82; margin-top: 6px; }
+
+  .stop-badge {
+    position: absolute; right: -62px; top: 50%; transform: translateY(-50%);
+    font-size: 11px; font-weight: 700; color: #c0392b;
+    display: flex; align-items: center; gap: 4px; white-space: nowrap;
+  }
+  .stop-badge::before { content: ''; display: block; width: 24px; height: 1.5px; background: #c0392b; }
+
+  /* ── Detail panel ── */
+  .detail-panel {
+    overflow: hidden; max-height: 0;
+    transition: max-height 0.45s ease, opacity 0.3s ease;
+    opacity: 0;
+  }
+  .detail-panel.open { max-height: 4000px; opacity: 1; }
+  .detail-inner {
+    background: #fff; border-radius: 12px; margin-top: 6px;
+    padding: 24px; border: 1.5px solid #e8e6e0;
+  }
+  .detail-inner h3 { font-size: 14px; font-weight: 700; margin-bottom: 16px; text-align: center; }
+
+  /* ── Step colors ── */
+  .step-prefilter { background: #1a1a1a; border-color: #333; }
+  .step-prefilter .step-title { color: #fff; }
+  .step-prefilter .step-desc  { color: #aaa; }
+  .step-prefilter .step-chevron { color: #fff; }
+
+  .step-red    { background: #fff0ef; border-color: #f5c6c3; }
+  .step-red .step-title { color: #c0392b; }
+  .step-red .step-desc  { color: #8b2c23; }
+
+  .step-amber  { background: #fffbf0; border-color: #f5dfa0; }
+  .step-amber .step-title { color: #9a6500; }
+  .step-amber .step-desc  { color: #7a5200; }
+
+  .step-blue   { background: #f0f6ff; border-color: #b8d4f5; }
+  .step-blue .step-title { color: #1a5fa8; }
+  .step-blue .step-desc  { color: #1a4a80; }
+
+  .step-teal   { background: #f0faf6; border-color: #9fd8c0; }
+  .step-teal .step-title { color: #0e6e52; }
+  .step-teal .step-desc  { color: #0a5540; }
+
+  .step-coral  { background: #fff4f0; border-color: #f5c0ab; }
+  .step-coral .step-title { color: #a03820; }
+  .step-coral .step-desc  { color: #7a2c18; }
+
+  .step-green  { background: #f2fbf0; border-color: #aedfaa; }
+  .step-green .step-title { color: #2a7a28; }
+  .step-green .step-desc  { color: #1e5e1c; }
+
+  /* ── Criteria cards ── */
+  .criteria-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+  .criteria-card {
+    border-radius: 10px; border: 2px solid #e8e6e0;
+    background: #fafaf8; cursor: pointer;
+    transition: all 0.2s ease; overflow: hidden;
+  }
+  .criteria-card:hover { border-color: #ccc; transform: translateY(-1px); }
+  .criteria-card.checked { border-color: #2a7a28; background: #f0fbee; }
+  .criteria-card.unchecked-final { border-color: #f5c6c3; background: #fff8f8; }
+
+  .criteria-header {
+    display: flex; align-items: center; gap: 10px;
+    padding: 12px 14px;
+  }
+
+  .criteria-check {
+    width: 24px; height: 24px; border-radius: 50%; flex-shrink: 0;
+    border: 2px solid #ccc; display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 700; transition: all 0.2s;
+    background: #fff;
+  }
+  .criteria-card.checked .criteria-check {
+    border-color: #2a7a28; background: #2a7a28; color: #fff;
+  }
+  .check-icon { font-size: 12px; color: #bbb; line-height: 1; }
+  .criteria-card.checked .check-icon { color: #fff; }
+
+  .criteria-name { font-size: 13px; font-weight: 700; color: #1a1a1a; }
+  .criteria-card.checked .criteria-name { color: #2a7a28; }
+
+  .criteria-body {
+    font-size: 11.5px; line-height: 1.7; color: #555;
+    padding: 0 14px 12px; border-top: 1px solid #eee; margin-top: 0; padding-top: 10px;
+  }
+  .criteria-card.checked .criteria-body { color: #3a6a3a; border-top-color: #d0ead0; }
+
+  /* ── Result bar ── */
+  .result-bar {
+    display: flex; align-items: center; justify-content: space-between;
+    background: #f5f4f1; border-radius: 10px; padding: 12px 16px;
+    margin-top: 14px; border: 1.5px solid #e8e6e0;
+  }
+  .result-count { font-size: 15px; font-weight: 700; color: #1a1a1a; }
+  .result-label { font-size: 12px; color: #888; }
+
+  /* progress bar */
+  .progress-wrap { height: 6px; background: #e8e6e0; border-radius: 3px; margin-top: 8px; overflow: hidden; }
+  .progress-fill { height: 100%; border-radius: 3px; background: #2a7a28; transition: width 0.3s ease; }
+
+  .result-decision { margin-top: 10px; }
+
+  /* ── Sub-steps ── */
+  .sub-steps { display: flex; flex-direction: column; gap: 8px; }
+  .sub-step { border-radius: 8px; padding: 13px 16px; border: 1px solid transparent; }
+  .sub-step-title { font-size: 13px; font-weight: 700; margin-bottom: 5px; }
+  .sub-step-body  { font-size: 12px; line-height: 1.75; }
+
+  .ss-purple { background: #f3f2ff; border-color: #c8c4f0; }
+  .ss-purple .sub-step-title { color: #4a3faa; }
+  .ss-purple .sub-step-body  { color: #3a2f88; }
+  .ss-blue   { background: #eef5ff; border-color: #b8d4f5; }
+  .ss-blue .sub-step-title   { color: #1a5fa8; }
+  .ss-blue .sub-step-body    { color: #1a4a80; }
+  .ss-teal   { background: #edfaf4; border-color: #9fd8c0; }
+  .ss-teal .sub-step-title   { color: #0b6045; }
+  .ss-teal .sub-step-body    { color: #0a5040; }
+  .ss-amber  { background: #fffbee; border-color: #f0d898; }
+  .ss-amber .sub-step-title  { color: #8a5c00; }
+  .ss-amber .sub-step-body   { color: #7a5000; }
+  .ss-red    { background: #fff0ef; border-color: #f5c6c3; }
+  .ss-red .sub-step-title    { color: #b02828; }
+  .ss-red .sub-step-body     { color: #8b2020; }
+  .ss-green  { background: #f0fbee; border-color: #aedfaa; }
+  .ss-green .sub-step-title  { color: #247022; }
+  .ss-green .sub-step-body   { color: #1e5c1c; }
+  .ss-coral  { background: #fff2ee; border-color: #f5bfab; }
+  .ss-coral .sub-step-title  { color: #8a3418; }
+  .ss-coral .sub-step-body   { color: #7a2c14; }
+  .ss-gray   { background: #f5f4f1; border-color: #ddd; }
+  .ss-gray .sub-step-title   { color: #444; }
+  .ss-gray .sub-step-body    { color: #555; }
+
+  .divider { border: none; border-top: 1px dashed #ddd; margin: 14px 0; }
+  .section-label { font-size: 13px; font-weight: 700; margin-bottom: 10px; }
+
+  .signal-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+  .signal-card { border-radius: 8px; padding: 12px; text-align: center; border: 1px solid #b8d4f5; background: #eef5ff; }
+  .signal-card.sig-coral { background: #fff2ee; border-color: #f5bfab; }
+  .sig-title { font-size: 12px; font-weight: 700; color: #1a5fa8; margin-bottom: 6px; }
+  .signal-card.sig-coral .sig-title { color: #8a3418; }
+  .sig-good  { font-size: 11px; color: #1a8a4a; margin-bottom: 2px; line-height: 1.5; }
+  .sig-bad   { font-size: 11px; color: #c0392b; line-height: 1.5; }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .tag { font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 50px; border: 1px solid transparent; }
+  .tag-green  { background: #edf8eb; border-color: #aedfaa; color: #247022; }
+  .tag-amber  { background: #fffbee; border-color: #f0d898; color: #8a5c00; }
+  .tag-red    { background: #fff0ef; border-color: #f5c6c3; color: #b02828; }
+
+  .decision-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; }
+  .dec-green { background: #edf8eb; border: 1px solid #aedfaa; border-radius: 8px; padding: 12px; text-align: center; }
+  .dec-green .dec-title { font-size: 13px; font-weight: 700; color: #247022; margin-bottom: 4px; }
+  .dec-green .dec-sub   { font-size: 11px; color: #2a7a28; }
+  .dec-red   { background: #fff0ef; border: 1px solid #f5c6c3; border-radius: 8px; padding: 12px; text-align: center; }
+  .dec-red .dec-title   { font-size: 13px; font-weight: 700; color: #b02828; margin-bottom: 4px; }
+  .dec-red .dec-sub     { font-size: 11px; color: #8b2c23; }
+
+  .ocean-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+  .ocean-card { border-radius: 8px; padding: 13px; text-align: center; border: 1px solid #f5bfab; background: #fff4f1; }
+  .ocean-card .oc-title { font-size: 12px; font-weight: 700; color: #8a3418; margin-bottom: 6px; }
+  .ocean-card .oc-body  { font-size: 11px; color: #7a2c18; line-height: 1.65; }
+
+  .checklist { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+  .checklist li { display: flex; align-items: flex-start; gap: 10px; font-size: 12.5px; padding: 11px 14px; background: #f8f7f4; border-radius: 8px; line-height: 1.65; }
+  .ck-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
+  .dot-green { background: #2a7a28; }
+  .dot-amber { background: #9a6500; }
+  .dot-blue  { background: #1a5fa8; }
+  .dot-coral { background: #a03820; }
+
+  @media (max-width: 520px) {
+    .signal-grid { grid-template-columns: 1fr 1fr; }
+    .ocean-grid  { grid-template-columns: 1fr; }
+    .criteria-grid { grid-template-columns: 1fr; }
+    .stop-badge  { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Quy trình đánh giá sản phẩm Dropship</h1>
+  <p class="subtitle">Framework Quang Vinh · Bấm từng bước để xem hướng dẫn chi tiết</p>
+
+  <span class="input-pill">Input: link · ảnh · mô tả sản phẩm</span>
+  <div class="arrow">↓</div>
+
+  <!-- ══ PRE-FILTER ══ -->
+  <div class="step-wrapper">
+    <div class="step step-prefilter" onclick="toggle('pre')">
+      <div class="step-header">
+        <div class="step-title">Bộ lọc sơ bộ — 6 tiêu chí chọn sản phẩm</div>
+        <span class="step-chevron">▾</span>
+      </div>
+      <div class="step-desc">Phải đạt đủ 6/6 mới đáng research tiếp · Thiếu 1 → bỏ qua ngay</div>
+    </div>
+    <div class="detail-panel" id="pre">
+      <div class="detail-inner">
+        <h3>Tick vào từng tiêu chí đạt được</h3>
+        <div class="criteria-grid">
+
+          <div class="criteria-card" onclick="toggleCriteria(this)">
+            <div class="criteria-header">
+              <div class="criteria-check"><span class="check-icon">○</span></div>
+              <div class="criteria-name">✨ Wow Factor</div>
+            </div>
+            <div class="criteria-body">
+              Người xem lần đầu có phản ứng "Ủa cái này là gì?" hoặc "Hay thật!" không?<br><br>
+              <strong>✓</strong> Độc lạ, chưa thấy bao giờ, muốn xem thêm<br>
+              <strong>✗</strong> Sản phẩm bình thường, ai cũng biết rồi
+            </div>
+          </div>
+
+          <div class="criteria-card" onclick="toggleCriteria(this)">
+            <div class="criteria-header">
+              <div class="criteria-check"><span class="check-icon">○</span></div>
+              <div class="criteria-name">🎯 Problem-solving</div>
+            </div>
+            <div class="criteria-body">
+              Giải quyết vấn đề thực tế — đau, bất tiện, xấu hổ, sợ hãi?<br><br>
+              <strong>✓</strong> Pain point rõ ràng, người mua biết ngay tại sao cần<br>
+              <strong>✗</strong> Nice-to-have, không ai thực sự cần
+            </div>
+          </div>
+
+          <div class="criteria-card" onclick="toggleCriteria(this)">
+            <div class="criteria-header">
+              <div class="criteria-check"><span class="check-icon">○</span></div>
+              <div class="criteria-name">🌿 Evergreen</div>
+            </div>
+            <div class="criteria-body">
+              Bán được quanh năm, không phụ thuộc trend ngắn hạn hay mùa vụ?<br><br>
+              <strong>✓</strong> Vấn đề tồn tại mãi — sức khỏe, đau, tiện ích, beauty cơ bản<br>
+              <strong>✗</strong> Trend TikTok 3 tháng, sản phẩm mùa hè/đông cụ thể
+            </div>
+          </div>
+
+          <div class="criteria-card" onclick="toggleCriteria(this)">
+            <div class="criteria-header">
+              <div class="criteria-check"><span class="check-icon">○</span></div>
+              <div class="criteria-name">💰 Margin ≥ $50</div>
+            </div>
+            <div class="criteria-body">
+              Sau khi trừ giá nhập + shipping, còn lại ≥ $50 chưa tính ad cost?<br><br>
+              <strong>✓</strong> Giá bán − Giá nhập − Ship ≥ $50<br>
+              <strong>✗</strong> Margin mỏng → không đủ budget test advertorial
+            </div>
+          </div>
+
+          <div class="criteria-card" onclick="toggleCriteria(this)">
+            <div class="criteria-header">
+              <div class="criteria-check"><span class="check-icon">○</span></div>
+              <div class="criteria-name">👥 Target rõ ràng</div>
+            </div>
+            <div class="criteria-body">
+              Mô tả được người mua trong 1 câu: ai, vấn đề gì, hoàn cảnh nào?<br><br>
+              <strong>✓</strong> "Phụ nữ 45–60 bị đau khớp khi leo cầu thang"<br>
+              <strong>✗</strong> "Mọi người đều cần" → không target được ai
+            </div>
+          </div>
+
+          <div class="criteria-card" onclick="toggleCriteria(this)">
+            <div class="criteria-header">
+              <div class="criteria-check"><span class="check-icon">○</span></div>
+              <div class="criteria-name">🏪 Hard to find locally</div>
+            </div>
+            <div class="criteria-body">
+              Khách không thể ra siêu thị / Amazon gần nhà mua ngay?<br><br>
+              <strong>✓</strong> Niche, không có ở Walmart / Target / local store<br>
+              <strong>✗</strong> Bán đầy cửa hàng gần nhà → không ai mua online
+            </div>
+          </div>
+
+        </div>
+
+        <div class="result-bar">
+          <div>
+            <div class="result-count"><span id="check-count">0</span>/6 tiêu chí đạt</div>
+            <div class="result-label" id="result-label" style="font-size:12px;color:#888;margin-top:2px;">Chưa đánh giá — tick vào từng tiêu chí</div>
+          </div>
+        </div>
+        <div class="progress-wrap" style="margin-top:8px;">
+          <div class="progress-fill" id="progress-fill" style="width:0%;"></div>
+        </div>
+
+        <div id="result-pass" style="display:none;margin-top:10px;">
+          <div class="dec-green" style="text-align:center;padding:14px;">
+            <div class="dec-title">✅ Đủ 6/6 — Tiến hành research!</div>
+            <div class="dec-sub">Chạy tiếp 5 bước validate bên dưới</div>
+          </div>
+        </div>
+        <div id="result-fail" style="display:none;margin-top:10px;">
+          <div class="dec-red" style="text-align:center;padding:14px;">
+            <div class="dec-title">❌ Chưa đủ 6/6 — Bỏ qua sản phẩm này</div>
+            <div class="dec-sub">Không đáng tốn thời gian research tiếp</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="arrow">↓</div>
+
+  <!-- ══ STEP 1: TRADEMARK ══ -->
+  <div class="step-wrapper">
+    <div class="step step-red" onclick="toggle('s1')">
+      <div class="step-header">
+        <div class="step-title">Bước 1 — Trademark check</div>
+        <span class="step-chevron">▾</span>
+      </div>
+      <div class="step-desc">Logo in sẵn? Brand đăng ký? → LOẠI NGAY · Generic/OEM → tiếp tục</div>
+    </div>
+    <div class="stop-badge">STOP</div>
+    <div class="detail-panel" id="s1">
+      <div class="detail-inner">
+        <h3>Trademark Check — Lọc ngay từ đầu</h3>
+        <div class="sub-steps">
+          <div class="sub-step ss-red">
+            <div class="sub-step-title">LOẠI NGAY nếu có bất kỳ dấu hiệu nào</div>
+            <div class="sub-step-body">
+              · Logo / brand name in trực tiếp lên sản phẩm (không thể bỏ đi)<br>
+              · Tên là trademark đã đăng ký: Nike, Apple, Disney, Supreme…<br>
+              · Sản phẩm là replica / clone rõ ràng của brand nổi tiếng<br>
+              · Hình dáng / thiết kế có patent (ví dụ: form AirPods, túi Hermès)
+            </div>
+          </div>
+          <div class="sub-step ss-green">
+            <div class="sub-step-title">TIẾP TỤC nếu</div>
+            <div class="sub-step-body">
+              · Sản phẩm generic, không có tên thương hiệu<br>
+              · White-label / OEM — có thể đặt hàng không logo<br>
+              · Có branded version nhưng tìm được unbranded trên AliExpress<br>
+              · Sản phẩm phổ thông bán dưới nhiều tên khác nhau
+            </div>
+          </div>
+          <div class="sub-step ss-gray">
+            <div class="sub-step-title">Cách check nhanh</div>
+            <div class="sub-step-body">
+              Google: <strong>"[tên sản phẩm]" trademark</strong><br>
+              Hoặc search AliExpress: tìm unbranded version — nếu có nhiều supplier generic = sản phẩm sạch
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="arrow">↓</div>
+
+  <!-- ══ STEP 2: MARGIN ══ -->
+  <div class="step-wrapper">
+    <div class="step step-amber" onclick="toggle('s2')">
+      <div class="step-header">
+        <div class="step-title">Bước 2 — Margin analysis</div>
+        <span class="step-chevron">▾</span>
+      </div>
+      <div class="step-desc">Search giá AliExpress/CJ + giá Shopify đối thủ<br>Ngưỡng tối thiểu: $50 margin · Thiếu → STOP</div>
+    </div>
+    <div class="stop-badge">&lt;$50 STOP</div>
+    <div class="detail-panel" id="s2">
+      <div class="detail-inner">
+        <h3>Margin Analysis — Tính đúng từ đầu</h3>
+        <div class="sub-steps">
+          <div class="sub-step ss-amber">
+            <div class="sub-step-title">Công thức tính margin</div>
+            <div class="sub-step-body">
+              <strong>Margin = Giá bán − Giá nhập − Shipping</strong><br>
+              · Giá nhập: search AliExpress / CJdropshipping<br>
+              · Shipping US/UK: ước tính $5–8/đơn<br>
+              · Giá bán: xem đối thủ Shopify đang bán bao nhiêu
+            </div>
+          </div>
+          <div class="sub-step ss-blue">
+            <div class="sub-step-title">Tìm giá bán thị trường</div>
+            <div class="sub-step-body">
+              Google: <strong>"[tên sản phẩm]" site:myshopify.com</strong><br>
+              Hoặc search FB Ad Library → click vào ad → xem giá trên store<br>
+              Xem Amazon để biết price anchor của thị trường
+            </div>
+          </div>
+          <div class="sub-step ss-green">
+            <div class="sub-step-title">Ngưỡng margin</div>
+            <div class="sub-step-body">
+              · <strong>≥ $50</strong>: Đạt — đủ budget test advertorial<br>
+              · $25–49: Chỉ ổn nếu có upsell / bundle tăng AOV<br>
+              · &lt;$25: Không viable — loại luôn
+            </div>
+          </div>
+          <div class="sub-step ss-red">
+            <div class="sub-step-title">Bẫy margin hay gặp</div>
+            <div class="sub-step-body">
+              · Giá nhập cao ($20+) nhưng không bán được cao → margin thực âm sau ads<br>
+              · Amazon đang bán cùng giá hoặc rẻ hơn → khách sẽ không mua qua store<br>
+              · Sản phẩm nặng → shipping $15–20 → margin bị ăn hết
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="arrow">↓</div>
+
+  <!-- ══ STEP 3: FB AD LIBRARY ══ -->
+  <div class="step-wrapper">
+    <div class="step step-blue" onclick="toggle('s3')">
+      <div class="step-header">
+        <div class="step-title">Bước 3 — Validate FB Ad Library</div>
+        <span class="step-chevron">▾</span>
+      </div>
+      <div class="step-desc">Ad chạy 10–60 ngày · ≥30 active ads · &lt;75% tắt<br>One-product store · AOV ≥ $35 · Key (QV): đã có advertorial/lander chưa?</div>
+    </div>
+    <div class="detail-panel" id="s3">
+      <div class="detail-inner">
+        <h3>Cách đọc Facebook Ad Library từng bước</h3>
+        <div class="sub-steps">
+          <div class="sub-step ss-purple">
+            <div class="sub-step-title">1. Tìm kiếm đúng keyword</div>
+            <div class="sub-step-body">
+              Vào <strong>facebook.com/ads/library</strong><br>
+              Dùng: tên sản phẩm tiếng Anh · "free shipping" · "buy now" · "50% off"<br>
+              Filter: <strong>Active ads only</strong> · Country: US / UK / CA / AU
+            </div>
+          </div>
+          <div class="sub-step ss-blue">
+            <div class="sub-step-title">2. Đếm số đối thủ đang chạy</div>
+            <div class="sub-step-body">
+              Search tên sản phẩm → đếm bao nhiêu page khác nhau đang chạy
+              <div class="tag-row">
+                <span class="tag tag-green">1–5 stores = tốt</span>
+                <span class="tag tag-amber">6–10 = cẩn thận</span>
+                <span class="tag tag-red">&gt;10 = bão hòa</span>
+              </div>
+            </div>
+          </div>
+          <div class="sub-step ss-blue">
+            <div class="sub-step-title">3. Vào xem từng đối thủ</div>
+            <div class="sub-step-body">
+              Click vào page → "See all ads" → xem toàn bộ ad library của họ<br>
+              Sort by: <strong>Most recent</strong> để check ngày ra ad mới nhất
+            </div>
+          </div>
+        </div>
+        <hr class="divider">
+        <div class="section-label" style="color:#1a5fa8;">5 tín hiệu cần đọc</div>
+        <div class="signal-grid">
+          <div class="signal-card">
+            <div class="sig-title">Thời gian chạy</div>
+            <div class="sig-good">✓ 10–60 ngày = vàng</div>
+            <div class="sig-bad">✗ &lt;10 chưa rõ · &gt;60 cũ</div>
+          </div>
+          <div class="signal-card">
+            <div class="sig-title">Số active ads</div>
+            <div class="sig-good">✓ ≥30 = đang scale</div>
+            <div class="sig-bad">✗ &lt;10 = mới test</div>
+          </div>
+          <div class="signal-card">
+            <div class="sig-title">% ads bị tắt</div>
+            <div class="sig-good">✓ &lt;75% tắt = ổn</div>
+            <div class="sig-bad">✗ &gt;75% tắt = chật vật</div>
+          </div>
+          <div class="signal-card">
+            <div class="sig-title">Ra ad mới</div>
+            <div class="sig-good">✓ Mỗi 2–3 ngày = win</div>
+            <div class="sig-bad">✗ Ngừng &gt;2 tuần = tắt lửa</div>
+          </div>
+          <div class="signal-card">
+            <div class="sig-title">Loại creative</div>
+            <div class="sig-good">✓ Chỉ video = QV vào image</div>
+            <div class="sig-bad">✗ Đã có advertorial rồi</div>
+          </div>
+          <div class="signal-card sig-coral">
+            <div class="sig-title">Advertorial check (QV)</div>
+            <div class="sig-good">✓ Chưa có lander = Blue Ocean</div>
+            <div class="sig-bad">✗ Article-style = mất lợi thế</div>
+          </div>
+        </div>
+        <hr class="divider">
+        <div class="sub-step ss-gray" style="margin-bottom:10px;">
+          <div class="sub-step-title">Cách check advertorial</div>
+          <div class="sub-step-body">Click vào ad → nếu URL dẫn đến trang dài, nhiều chữ, kể chuyện, không có Add to Cart ngay trên đầu → đó là advertorial/lander</div>
+        </div>
+        <div class="decision-row">
+          <div class="dec-green">
+            <div class="dec-title">4–6 tín hiệu xanh → TEST</div>
+            <div class="dec-sub">Tiến sang Blue Ocean analysis</div>
+          </div>
+          <div class="dec-red">
+            <div class="dec-title">&lt;4 tín hiệu xanh → BỎ QUA</div>
+            <div class="dec-sub">Tìm sản phẩm khác</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="arrow">↓</div>
+
+  <!-- ══ STEP 4: SOCIAL PROOF ══ -->
+  <div class="step-wrapper">
+    <div class="step step-teal" onclick="toggle('s4')">
+      <div class="step-header">
+        <div class="step-title">Bước 4 — Social proof & trend</div>
+        <span class="step-chevron">▾</span>
+      </div>
+      <div class="step-desc">TikTok: #TikTokMadeMeBuyIt · views · "where to buy?" comments<br>Không bắt buộc (QV) — nhưng có thì xác nhận demand</div>
+    </div>
+    <div class="detail-panel" id="s4">
+      <div class="detail-inner">
+        <h3>Social Proof & Trend — Xác nhận demand thực</h3>
+        <div class="sub-steps">
+          <div class="sub-step ss-teal">
+            <div class="sub-step-title">Search trên TikTok</div>
+            <div class="sub-step-body">
+              Search tên sản phẩm tiếng Anh → xem video có nhiều view không<br>
+              Hashtags: <strong>#TikTokMadeMeBuyIt · #ProductReview · #AmazonFinds</strong><br>
+              Xem ngày đăng: video mới (&lt;3 tháng) = trend đang live
+            </div>
+          </div>
+          <div class="sub-step ss-teal">
+            <div class="sub-step-title">Tín hiệu mua hàng thực trong comment</div>
+            <div class="sub-step-body">
+              · <strong>"Where can I buy this?"</strong> → buying intent cao nhất<br>
+              · <strong>"I just ordered!"</strong> → đã có người mua<br>
+              · Bạn bè tag nhau → viral potential<br>
+              · Chỉ "haha" hoặc "omg" → entertainment, không phải mua
+            </div>
+          </div>
+          <div class="sub-step ss-gray">
+            <div class="sub-step-title">Theo QV: bước này không bắt buộc</div>
+            <div class="sub-step-body">
+              Nếu qua được các bước trên thì TikTok chỉ để confirm thêm.<br>
+              Không có TikTok content ≠ sản phẩm xấu — có thể đang ở early stage.<br>
+              Có TikTok content nhiều = demand xác nhận nhưng cạnh tranh cao hơn.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="arrow">↓</div>
+
+  <!-- ══ STEP 5: BLUE OCEAN ══ -->
+  <div class="step-wrapper">
+    <div class="step step-coral" onclick="toggle('s5')">
+      <div class="step-header">
+        <div class="step-title">Bước 5 — Blue Ocean & angle</div>
+        <span class="step-chevron">▾</span>
+      </div>
+      <div class="step-desc">Đối thủ target ai? → Ai chưa được target?<br>Audience mới / thị trường mới / format ads mới · US · UK · CA · AU only</div>
+    </div>
+    <div class="detail-panel" id="s5">
+      <div class="detail-inner">
+        <h3>Blue Ocean & Angle — Tìm vùng chưa ai khai thác</h3>
+        <div class="sub-steps">
+          <div class="sub-step ss-coral">
+            <div class="sub-step-title">Phân tích đối thủ đang làm gì</div>
+            <div class="sub-step-body">
+              Xem tất cả ad: họ đang nói chuyện với ai? Pain point gì? Angle gì?<br>
+              Ghi lại: tuổi · giới tính · vấn đề nhắm tới · cách hook người xem
+            </div>
+          </div>
+        </div>
+        <hr class="divider">
+        <div class="section-label" style="color:#a03820;">3 hướng Blue Ocean</div>
+        <div class="ocean-grid">
+          <div class="ocean-card">
+            <div class="oc-title">Audience mới</div>
+            <div class="oc-body">Cùng sản phẩm, target nhóm chưa ai nói chuyện tới<br><br>VD: đối thủ target nữ 25–35 → thử 45–60 tuổi</div>
+          </div>
+          <div class="ocean-card">
+            <div class="oc-title">Thị trường mới</div>
+            <div class="oc-body">Winning product ở US → đem vào UK / CA / AU chưa bão hòa<br><br>Cùng vấn đề, họ chưa thấy sản phẩm này</div>
+          </div>
+          <div class="ocean-card">
+            <div class="oc-title">Format ads mới</div>
+            <div class="oc-body">Đối thủ dùng video → anh làm advertorial dạng bài báo<br><br>Tiếp cận người đọc text/ảnh — ít cạnh tranh hơn</div>
+          </div>
+        </div>
+        <hr class="divider">
+        <div class="sub-step ss-coral">
+          <div class="sub-step-title">Gợi ý angle advertorial (QV)</div>
+          <div class="sub-step-body">
+            Đừng bán sản phẩm — bán kết quả và cảm xúc.<br>
+            Hook tốt: <em>"Tôi 52 tuổi và đây là thứ thay đổi [vấn đề cụ thể] của tôi trong 3 tuần"</em><br>
+            Angle = Pain point cụ thể × Audience cụ thể × Story believable
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="arrow">↓</div>
+
+  <!-- ══ OUTPUT ══ -->
+  <div class="step-wrapper">
+    <div class="step step-green" onclick="toggle('s6')">
+      <div class="step-header">
+        <div class="step-title">Báo cáo phân tích — điểm /10</div>
+        <span class="step-chevron">▾</span>
+      </div>
+      <div class="step-desc">Margin · Trademark · Competitor landscape · Advertorial angle<br>RECOMMEND / KHÔNG RECOMMEND / CẦN RESEARCH THÊM</div>
+    </div>
+    <div class="detail-panel" id="s6">
+      <div class="detail-inner">
+        <h3>Cấu trúc báo cáo đầy đủ</h3>
+        <ul class="checklist">
+          <li><span class="ck-dot dot-green"></span><div><strong>Kết luận nhanh</strong> — RECOMMEND / KHÔNG / CẦN THÊM · điểm /10 · lý do 1 câu</div></li>
+          <li><span class="ck-dot dot-amber"></span><div><strong>Margin analysis</strong> — Giá nhập · Giá bán đề xuất · Margin thực · Đạt/Không đạt $50</div></li>
+          <li><span class="ck-dot dot-green"></span><div><strong>Trademark check</strong> — Sạch / Có rủi ro + lý do cụ thể</div></li>
+          <li><span class="ck-dot dot-blue"></span><div><strong>Competitor landscape</strong> — Số đối thủ · Loại creative · Advertorial/lander: có hay chưa</div></li>
+          <li><span class="ck-dot dot-blue"></span><div><strong>Social proof</strong> — TikTok status · Comment signals · Trend đang lên hay đã peak</div></li>
+          <li><span class="ck-dot dot-coral"></span><div><strong>Blue Ocean opportunities</strong> — Audience chưa target · Angle gợi ý · Hook cụ thể cho advertorial</div></li>
+          <li><span class="ck-dot dot-green"></span><div><strong>Next steps 1–2–3</strong> — Hành động cụ thể ngay sau khi đọc báo cáo</div></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // Toggle workflow steps
+  function toggle(id) {
+    const panel = document.getElementById(id);
+    const step = panel.previousElementSibling;
+    const isOpen = panel.classList.contains('open');
+    document.querySelectorAll('.detail-panel.open').forEach(p => {
+      p.classList.remove('open');
+      p.previousElementSibling.classList.remove('active');
+    });
+    if (!isOpen) {
+      panel.classList.add('open');
+      step.classList.add('active');
+      setTimeout(() => step.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
+    }
+  }
+
+  // Toggle criteria cards
+  function toggleCriteria(card) {
+    card.classList.toggle('checked');
+    const icon = card.querySelector('.check-icon');
+    icon.textContent = card.classList.contains('checked') ? '✓' : '○';
+    updateResult();
+  }
+
+  function updateResult() {
+    const cards = document.querySelectorAll('.criteria-card');
+    const checked = document.querySelectorAll('.criteria-card.checked').length;
+    const total = cards.length;
+
+    document.getElementById('check-count').textContent = checked;
+    document.getElementById('progress-fill').style.width = (checked / total * 100) + '%';
+
+    const label = document.getElementById('result-label');
+    const pass = document.getElementById('result-pass');
+    const fail = document.getElementById('result-fail');
+
+    if (checked === 0) {
+      label.textContent = 'Chưa đánh giá — tick vào từng tiêu chí';
+      pass.style.display = 'none';
+      fail.style.display = 'none';
+    } else if (checked === total) {
+      label.textContent = '🎉 Đủ điều kiện!';
+      pass.style.display = 'block';
+      fail.style.display = 'none';
+      document.getElementById('progress-fill').style.background = '#2a7a28';
+    } else {
+      label.textContent = `Còn thiếu ${total - checked} tiêu chí`;
+      pass.style.display = 'none';
+      fail.style.display = 'block';
+      document.getElementById('progress-fill').style.background = '#e07020';
+    }
+  }
+</script>
+</body>
+</html>

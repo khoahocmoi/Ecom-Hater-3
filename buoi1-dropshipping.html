@@ -1,0 +1,1462 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Buổi 1 — Tổng Quan Dropshipping | Ecom Hater K3</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:        #0F1117;
+  --surface:   #1A1F2E;
+  --surface2:  #222840;
+  --blue:      #2563EB;
+  --blue-glow: rgba(37,99,235,0.15);
+  --amber:     #F59E0B;
+  --amber-dim: rgba(245,158,11,0.12);
+  --text:      #E2E8F0;
+  --muted:     #64748B;
+  --rule:      rgba(255,255,255,0.07);
+  --green:     #10B981;
+  --red:       #EF4444;
+  --purple:    #8B5CF6;
+}
+
+html { scroll-behavior: smooth; scroll-snap-type: y proximity; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ── PROGRESS BAR ── */
+#progress {
+  position: fixed;
+  top: 0; left: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--blue), var(--amber));
+  z-index: 200;
+  transition: width 0.1s;
+  width: 0%;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed;
+  top: 2px; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  height: 52px;
+  background: rgba(15,17,23,0.92);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--rule);
+}
+
+.nav-left {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+}
+
+.nav-left span { color: var(--blue); }
+
+.nav-dots {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.nav-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--rule);
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+  border: 1px solid var(--muted);
+}
+
+.nav-dot.active {
+  background: var(--blue);
+  border-color: var(--blue);
+  transform: scale(1.3);
+}
+
+/* ── SECTIONS ── */
+.slide {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 80px 60px 60px;
+  max-width: 1100px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.slide-full {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 80px 0 60px;
+  position: relative;
+}
+
+.slide-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 60px;
+  width: 100%;
+}
+
+/* ── EYEBROW ── */
+.eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.eyebrow::before {
+  content: '';
+  display: inline-block;
+  width: 24px; height: 1px;
+  background: var(--blue);
+}
+
+/* ── TITLES ── */
+.title-xl {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(42px, 6vw, 80px);
+  font-weight: 700;
+  line-height: 1.0;
+  letter-spacing: -0.03em;
+  margin-bottom: 24px;
+}
+
+.title-lg {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(32px, 4.5vw, 56px);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  margin-bottom: 20px;
+}
+
+.title-md {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(22px, 3vw, 34px);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
+}
+
+.accent-blue { color: var(--blue); }
+.accent-amber { color: var(--amber); }
+.accent-green { color: var(--green); }
+.accent-purple { color: var(--purple); }
+
+.body-text {
+  font-size: 17px;
+  font-weight: 300;
+  color: rgba(226,232,240,0.75);
+  line-height: 1.75;
+  max-width: 680px;
+}
+
+.body-text strong {
+  color: var(--text);
+  font-weight: 500;
+}
+
+/* ── DIVIDER ── */
+.divider {
+  border: none;
+  border-top: 1px solid var(--rule);
+  margin: 48px 0;
+}
+
+/* ── HERO SLIDE ── */
+.hero-slide {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 80px 60px 60px;
+  max-width: 1100px;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-slide::before {
+  content: '';
+  position: absolute;
+  top: -200px; right: -200px;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(37,99,235,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-slide::after {
+  content: '';
+  position: absolute;
+  bottom: -100px; left: -100px;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(245,158,11,0.07) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--blue);
+  background: var(--blue-glow);
+  border: 1px solid rgba(37,99,235,0.3);
+  padding: 6px 14px;
+  border-radius: 2px;
+  display: inline-block;
+  margin-bottom: 32px;
+}
+
+.hero-meta {
+  display: flex;
+  gap: 32px;
+  margin-top: 48px;
+  flex-wrap: wrap;
+}
+
+.hero-meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.hero-meta-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.hero-meta-value {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text);
+}
+
+/* ── CARDS ── */
+.card-grid {
+  display: grid;
+  gap: 2px;
+  margin-top: 40px;
+}
+
+.card-grid-3 { grid-template-columns: repeat(3, 1fr); }
+.card-grid-2 { grid-template-columns: repeat(2, 1fr); }
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  padding: 32px 28px;
+  position: relative;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.card:hover {
+  background: var(--surface2);
+  border-color: rgba(37,99,235,0.2);
+}
+
+.card-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  margin-bottom: 16px;
+}
+
+.card-icon {
+  font-size: 28px;
+  margin-bottom: 16px;
+  display: block;
+}
+
+.card-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 17px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  line-height: 1.3;
+}
+
+.card-body {
+  font-size: 13px;
+  color: rgba(226,232,240,0.6);
+  line-height: 1.7;
+}
+
+.card-tag {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 2px;
+  margin-bottom: 12px;
+}
+
+.tag-green { background: rgba(16,185,129,0.12); color: var(--green); border: 1px solid rgba(16,185,129,0.25); }
+.tag-amber { background: var(--amber-dim); color: var(--amber); border: 1px solid rgba(245,158,11,0.25); }
+.tag-red { background: rgba(239,68,68,0.1); color: var(--red); border: 1px solid rgba(239,68,68,0.25); }
+.tag-blue { background: var(--blue-glow); color: var(--blue); border: 1px solid rgba(37,99,235,0.25); }
+.tag-purple { background: rgba(139,92,246,0.1); color: var(--purple); border: 1px solid rgba(139,92,246,0.25); }
+
+/* ── MODEL COMPARISON TABLE ── */
+.model-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 40px;
+  font-size: 14px;
+}
+
+.model-table th {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  padding: 14px 20px;
+  text-align: left;
+  border-bottom: 1px solid var(--rule);
+  color: var(--muted);
+  letter-spacing: 0.05em;
+}
+
+.model-table th:first-child { color: var(--text); }
+
+.model-table td {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--rule);
+  color: rgba(226,232,240,0.75);
+  vertical-align: top;
+  line-height: 1.5;
+}
+
+.model-table tr:last-child td { border-bottom: none; }
+
+.model-table tr:hover td { background: var(--surface); }
+
+.model-table td:first-child {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  color: var(--text);
+  font-size: 15px;
+}
+
+.dot-yes::before { content: '✓'; color: var(--green); font-weight: 700; margin-right: 6px; }
+.dot-mid::before { content: '~'; color: var(--amber); font-weight: 700; margin-right: 6px; }
+.dot-no::before  { content: '✕'; color: var(--red);   font-weight: 700; margin-right: 6px; }
+
+/* ── GLOSSARY ── */
+.glossary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 2px;
+  margin-top: 40px;
+}
+
+.glossary-item {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  padding: 20px 20px;
+  transition: background 0.15s;
+}
+
+.glossary-item:hover { background: var(--surface2); }
+
+.glossary-term {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--amber);
+  margin-bottom: 6px;
+}
+
+.glossary-def {
+  font-size: 12px;
+  color: rgba(226,232,240,0.6);
+  line-height: 1.6;
+}
+
+/* ── FUNNEL SVG SECTION ── */
+.funnel-wrapper {
+  margin-top: 48px;
+  overflow-x: auto;
+  padding-bottom: 16px;
+}
+
+.funnel-svg {
+  display: block;
+  min-width: 900px;
+  width: 100%;
+}
+
+/* Funnel nodes */
+.f-node {
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.f-node rect, .f-node ellipse {
+  transition: fill 0.2s, stroke 0.2s;
+}
+
+.f-node:hover rect { fill: #2563EB !important; stroke: #60A5FA !important; }
+.f-node:hover ellipse { fill: #1e3a5f !important; stroke: #60A5FA !important; }
+.f-node:hover text { fill: #fff !important; }
+
+.f-tooltip {
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.f-node:hover + .f-tooltip { opacity: 1; }
+
+/* ── PRIORITY STEPS ── */
+.priority-list {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.priority-row {
+  display: grid;
+  grid-template-columns: 56px 1fr auto;
+  align-items: center;
+  gap: 24px;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  padding: 20px 24px;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.priority-row:hover {
+  background: var(--surface2);
+  border-color: rgba(37,99,235,0.2);
+}
+
+.priority-step {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--blue);
+  opacity: 0.4;
+  line-height: 1;
+}
+
+.priority-content {}
+
+.priority-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.priority-desc {
+  font-size: 13px;
+  color: rgba(226,232,240,0.55);
+  line-height: 1.5;
+}
+
+.priority-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 2px;
+  white-space: nowrap;
+}
+
+/* ── PAYMENT CARDS ── */
+.payment-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  margin-top: 40px;
+}
+
+.payment-card {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  padding: 28px 24px;
+}
+
+.payment-logo {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.payment-when {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 8px;
+}
+
+.payment-desc {
+  font-size: 13px;
+  color: rgba(226,232,240,0.6);
+  line-height: 1.65;
+}
+
+/* ── 10 STEPS PLACEHOLDER ── */
+.steps-placeholder {
+  margin-top: 40px;
+  background: var(--surface);
+  border: 1px dashed rgba(37,99,235,0.3);
+  padding: 60px 40px;
+  text-align: center;
+}
+
+.steps-placeholder-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  color: var(--muted);
+  letter-spacing: 0.05em;
+}
+
+/* ── SECTION COUNTER ── */
+.section-sep {
+  border-top: 1px solid var(--rule);
+  margin: 0;
+}
+
+/* ── KEY INSIGHT BOX ── */
+.insight {
+  background: linear-gradient(135deg, rgba(37,99,235,0.08), rgba(139,92,246,0.05));
+  border: 1px solid rgba(37,99,235,0.2);
+  border-left: 3px solid var(--blue);
+  padding: 24px 28px;
+  margin-top: 32px;
+  max-width: 720px;
+}
+
+.insight-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 8px;
+}
+
+.insight-text {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.6;
+  color: var(--text);
+}
+
+/* ── WARNING BOX ── */
+.warning {
+  background: rgba(245,158,11,0.06);
+  border: 1px solid rgba(245,158,11,0.2);
+  border-left: 3px solid var(--amber);
+  padding: 20px 24px;
+  margin-top: 24px;
+  max-width: 720px;
+}
+
+.warning-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 8px;
+}
+
+.warning-text {
+  font-size: 14px;
+  color: rgba(226,232,240,0.75);
+  line-height: 1.65;
+}
+
+/* ── SLIDE SECTION BACKGROUND ALTERNATES ── */
+.bg-alt { background: rgba(26,31,46,0.4); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .slide, .hero-slide { padding: 80px 24px 48px; }
+  .slide-inner { padding: 0 24px; }
+  nav { padding: 0 20px; }
+  .card-grid-3 { grid-template-columns: 1fr; }
+  .card-grid-2 { grid-template-columns: 1fr; }
+  .payment-grid { grid-template-columns: 1fr; }
+  .priority-row { grid-template-columns: 40px 1fr; }
+  .priority-badge { display: none; }
+  .glossary-grid { grid-template-columns: repeat(2, 1fr); }
+  .model-table { font-size: 12px; }
+  .model-table th, .model-table td { padding: 10px 12px; }
+}
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<nav>
+  <div class="nav-left"><span>EH·K3</span> / Buổi 01 — Tổng Quan</div>
+  <div class="nav-dots" id="navDots"></div>
+</nav>
+
+<!-- ══ SLIDE 1: HERO ══ -->
+<section id="s1" data-label="Intro">
+<div class="hero-slide">
+  <div class="hero-tag">Ecom Hater K3 · Buổi 01</div>
+  <h1 class="title-xl">
+    Dropshipping<br>
+    <span class="accent-blue">từ đầu,</span><br>
+    đúng cách.
+  </h1>
+  <div class="hero-meta">
+    <div class="hero-meta-item">
+      <span class="hero-meta-label">Nội dung</span>
+      <span class="hero-meta-value">5 phần</span>
+    </div>
+    <div class="hero-meta-item">
+      <span class="hero-meta-label">Cấp độ</span>
+      <span class="hero-meta-value">Người mới bắt đầu</span>
+    </div>
+    <div class="hero-meta-item">
+      <span class="hero-meta-label">Khoá</span>
+      <span class="hero-meta-value">Ecom Hater K3</span>
+    </div>
+  </div>
+</div>
+</section>
+
+<div class="section-sep"></div>
+
+<!-- ══ SLIDE 2: DROPSHIPPING LÀ GÌ ══ -->
+<section id="s2" data-label="Định nghĩa" class="bg-alt">
+<div class="slide">
+  <div class="eyebrow">Phần 01</div>
+  <h2 class="title-lg">Dropshipping<br><span class="accent-blue">là gì?</span></h2>
+  <p class="body-text">
+    Không phải "bán hàng không cần kho". Đó là định nghĩa nửa vời.<br>
+    Dropshipping là <strong>model kinh doanh</strong> trong đó bạn làm marketing và bán hàng, supplier lo fulfillment.
+    Bạn là người đứng giữa — và đó là lợi thế, không phải điểm yếu.
+  </p>
+
+  <div class="card-grid card-grid-3" style="margin-top:40px;">
+    <div class="card">
+      <span class="card-icon">🛒</span>
+      <div class="card-title">Khách hàng mua từ store của bạn</div>
+      <div class="card-body">Họ thấy ads, vào store, mua. Trải nghiệm mua sắm hoàn toàn từ brand của bạn.</div>
+    </div>
+    <div class="card">
+      <span class="card-icon">📦</span>
+      <div class="card-title">Đơn hàng chuyển đến supplier</div>
+      <div class="card-body">Tự động hoặc thủ công. Supplier đóng gói và ship thẳng đến khách — bạn không cần chạm vào sản phẩm.</div>
+    </div>
+    <div class="card">
+      <span class="card-icon">💰</span>
+      <div class="card-title">Bạn giữ phần chênh lệch</div>
+      <div class="card-body">Selling price – COGS – shipping – ads = net profit. Đơn giản về cấu trúc, khó về execution.</div>
+    </div>
+  </div>
+
+  <!-- DROPSHIPPING PROCESS DIAGRAM -->
+  <div style="margin-top:48px;">
+    <div class="section-label" style="margin-bottom:20px;">The Dropshipping Process</div>
+    <div style="overflow-x:auto;">
+      <svg viewBox="0 0 760 380" fill="none" xmlns="http://www.w3.org/2000/svg" style="min-width:520px; width:100%; max-width:680px; display:block; margin:0 auto;">
+        <defs>
+          <marker id="dp-arr" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto">
+            <path d="M0,0 L0,6 L8,3 z" fill="#2563EB"/>
+          </marker>
+        </defs>
+
+        <!-- Arc 1: Customer -> Store ($100) -->
+        <path d="M 130 290 A 160 160 0 0 1 330 110" stroke="#2563EB" stroke-width="2" fill="none" marker-end="url(#dp-arr)"/>
+        <circle cx="225" cy="170" r="16" fill="#2563EB"/>
+        <text x="225" y="175" text-anchor="middle" fill="#0F1117" font-family="Space Grotesk" font-size="13" font-weight="700">1</text>
+        <text x="175" y="135" fill="#E2E8F0" font-family="Space Grotesk" font-size="20" font-weight="700">$100</text>
+
+        <!-- Arc 2: Store -> Supplier ($34) -->
+        <path d="M 430 110 A 160 160 0 0 1 630 290" stroke="#2563EB" stroke-width="2" fill="none" marker-end="url(#dp-arr)"/>
+        <circle cx="535" cy="170" r="16" fill="#2563EB"/>
+        <text x="535" y="175" text-anchor="middle" fill="#0F1117" font-family="Space Grotesk" font-size="13" font-weight="700">2</text>
+        <text x="565" y="135" fill="#E2E8F0" font-family="Space Grotesk" font-size="20" font-weight="700">$34</text>
+
+        <!-- Arc 3: Supplier -> Customer (product) -->
+        <path d="M 590 330 A 220 220 0 0 1 170 330" stroke="#2563EB" stroke-width="2" fill="none" marker-end="url(#dp-arr)"/>
+        <circle cx="380" cy="345" r="16" fill="#2563EB"/>
+        <text x="380" y="350" text-anchor="middle" fill="#0F1117" font-family="Space Grotesk" font-size="13" font-weight="700">3</text>
+
+        <!-- Your Store node (top center) -->
+        <g>
+          <rect x="330" y="40" width="100" height="70" rx="6" fill="#1A1F2E" stroke="#2563EB" stroke-width="1.5"/>
+          <text x="380" y="78" text-anchor="middle" font-size="26">🏠</text>
+          <text x="380" y="125" text-anchor="middle" fill="#E2E8F0" font-family="Space Grotesk" font-size="14" font-weight="600">Your Store</text>
+        </g>
+
+        <!-- Customer node (bottom left) -->
+        <g>
+          <rect x="60" y="290" width="100" height="60" rx="6" fill="#1A1F2E" stroke="#10B981" stroke-width="1.5"/>
+          <text x="110" y="328" text-anchor="middle" font-size="24">🙂</text>
+          <text x="110" y="368" text-anchor="middle" fill="#E2E8F0" font-family="Space Grotesk" font-size="14" font-weight="600">The Customer</text>
+        </g>
+
+        <!-- Supplier node (bottom right) -->
+        <g>
+          <rect x="600" y="290" width="100" height="60" rx="6" fill="#1A1F2E" stroke="#F59E0B" stroke-width="1.5"/>
+          <text x="650" y="328" text-anchor="middle" font-size="24">📦</text>
+          <text x="650" y="368" text-anchor="middle" fill="#E2E8F0" font-family="Space Grotesk" font-size="14" font-weight="600">The Supplier</text>
+        </g>
+      </svg>
+    </div>
+    <div class="card-grid card-grid-3" style="margin-top:24px;">
+      <div class="card">
+        <div class="card-num">Bước 01</div>
+        <div class="card-body">Khách hàng trả <strong style="color:var(--text);">$100</strong> cho store của bạn để mua sản phẩm.</div>
+      </div>
+      <div class="card">
+        <div class="card-num">Bước 02</div>
+        <div class="card-body">Bạn trả <strong style="color:var(--text);">$34</strong> cho supplier để họ fulfill đơn hàng đó.</div>
+      </div>
+      <div class="card">
+        <div class="card-num">Bước 03</div>
+        <div class="card-body">Supplier ship sản phẩm thẳng đến khách. Bạn giữ lại <strong style="color:var(--green);">$66</strong> chênh lệch trước chi phí khác.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</section>
+
+<div class="section-sep"></div>
+
+<!-- ══ SLIDE 3: BA CON ĐƯỜNG ══ -->
+<section id="s3" data-label="3 Con đường">
+<div class="slide">
+  <div class="eyebrow">Phần 02</div>
+  <h2 class="title-lg">Ba con đường<br><span class="accent-amber">có thể đi</span></h2>
+  <p class="body-text">Không phải ai cũng nên đi cùng một con đường. Hiểu 3 model trước — chọn đúng từ đầu tiết kiệm rất nhiều tiền và thời gian.</p>
+
+  <div class="card-grid card-grid-3" style="margin-top:40px;">
+    <div class="card">
+      <span class="card-tag tag-green">Thấp rào cản</span>
+      <div class="card-title">Dropshipping thuần</div>
+      <div class="card-body" style="margin-bottom:16px;">AliExpress, CJ Dropshipping, DSers. Không cần vốn lớn, không cần kho. Bắt đầu nhanh nhất.</div>
+      <div style="font-size:12px; color: var(--muted); line-height:1.6;">
+        <div style="margin-bottom:4px;"><span class="dot-yes"></span>Vốn thấp, bắt đầu ngay</div>
+        <div style="margin-bottom:4px;"><span class="dot-yes"></span>Có đơn mới liên hệ supplier Trung Quốc ship đi</div>
+        <div style="margin-bottom:4px;"><span class="dot-no"></span>Shipping chậm (7–20 ngày)</div>
+        <div><span class="dot-no"></span>Cạnh tranh cao, margin mỏng</div>
+      </div>
+    </div>
+
+    <div class="card" style="border-color: rgba(37,99,235,0.25);">
+      <span class="card-tag tag-blue">Cân bằng nhất</span>
+      <div class="card-title">Branded Dropshipping</div>
+      <div class="card-body" style="margin-bottom:16px;">Xây brand nhẹ trên sản phẩm người khác. Custom packaging, custom name, trang sản phẩm riêng. Khách không biết bạn đang dropship.</div>
+      <div style="font-size:12px; color: var(--muted); line-height:1.6;">
+        <div style="margin-bottom:4px;"><span class="dot-yes"></span>Tách biệt khỏi đám đông</div>
+        <div style="margin-bottom:4px;"><span class="dot-yes"></span>Margin tốt hơn, loyal customer</div>
+        <div style="margin-bottom:4px;"><span class="dot-mid"></span>Cần đầu tư thêm vào brand</div>
+        <div><span class="dot-mid"></span>Thời gian setup lâu hơn</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <span class="card-tag tag-purple">Cao nhất</span>
+      <div class="card-title">3PL Brand</div>
+      <div class="card-body" style="margin-bottom:16px;">Stock hàng tại warehouse US/UK, fulfill từ đó. Shipping 2–5 ngày. Trải nghiệm khách hàng tốt nhất, margin cao nhất.</div>
+      <div style="font-size:12px; color: var(--muted); line-height:1.6;">
+        <div style="margin-bottom:4px;"><span class="dot-yes"></span>Shipping cực nhanh</div>
+        <div style="margin-bottom:4px;"><span class="dot-yes"></span>Refund/return dễ xử lý</div>
+        <div style="margin-bottom:4px;"><span class="dot-no"></span>Cần vốn để stock hàng</div>
+        <div><span class="dot-no"></span>Rủi ro tồn kho nếu sai sản phẩm</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Comparison Table -->
+  <table class="model-table" style="margin-top:40px;">
+    <thead>
+      <tr>
+        <th>Tiêu chí</th>
+        <th>Dropship thuần</th>
+        <th>Branded Drop</th>
+        <th>3PL Brand</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Thời gian ship</td>
+        <td><span class="dot-no"></span>7–20 ngày</td>
+        <td><span class="dot-mid"></span>5–15 ngày</td>
+        <td><span class="dot-yes"></span>2–5 ngày</td>
+      </tr>
+      <tr>
+        <td>Khó bị copy</td>
+        <td><span class="dot-no"></span>Dễ bị copy</td>
+        <td><span class="dot-mid"></span>Khó hơn</td>
+        <td><span class="dot-yes"></span>Rất khó</td>
+      </tr>
+      <tr>
+        <td>Phù hợp ai</td>
+        <td>Người mới, ít vốn</td>
+        <td>Đã có 1–2 winner</td>
+        <td>Đã có data, scale lớn</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</section>
+
+<div class="section-sep"></div>
+
+<!-- ══ SLIDE 4: GLOSSARY ══ -->
+<section id="s4" data-label="Thuật ngữ" class="bg-alt">
+<div class="slide">
+  <div class="eyebrow">Phần 03</div>
+  <h2 class="title-lg">Thuật ngữ<br><span class="accent-amber">hay dùng</span></h2>
+  <p class="body-text">Những từ này sẽ xuất hiện ở mọi buổi học. Hiểu đúng ngay từ đầu — đừng gật đầu khi chưa thực sự hiểu.</p>
+
+  <div class="glossary-grid">
+    <div class="glossary-item">
+      <div class="glossary-term">ROAS</div>
+      <div class="glossary-def">Return on Ad Spend. Doanh thu / Chi phí ads. ROAS 3x = $3 về cho mỗi $1 bỏ ra.</div>
+    </div>
+    <div class="glossary-item">
+      <div class="glossary-term">CPP / CPA</div>
+      <div class="glossary-def">Cost Per Purchase / Cost Per Acquisition. Tiền ads để có 1 đơn hàng. Càng thấp càng tốt.</div>
+    </div>
+    <div class="glossary-item">
+      <div class="glossary-term">CPM</div>
+      <div class="glossary-def">Cost Per 1,000 Impressions. Chi phí để 1,000 người thấy ads. Phản ánh độ cạnh tranh của audience.</div>
+    </div>
+    <div class="glossary-item">
+      <div class="glossary-term">CTR</div>
+      <div class="glossary-def">Click-Through Rate. % người thấy ads và click vào. CTR cao = creative tốt, hook mạnh.</div>
+    </div>
+    <div class="glossary-item">
+      <div class="glossary-term">AOV</div>
+      <div class="glossary-def">Average Order Value. Giá trị đơn hàng trung bình. Tăng AOV = tăng profit mà không tốn thêm ads.</div>
+    </div>
+    <div class="glossary-item">
+      <div class="glossary-term">LTV</div>
+      <div class="glossary-def">Lifetime Value. Tổng giá trị một khách hàng mang lại trong cả vòng đời. Nền tảng của email marketing.</div>
+    </div>
+    <div class="glossary-item">
+      <div class="glossary-term">CAC</div>
+      <div class="glossary-def">Customer Acquisition Cost. Tổng chi phí để có 1 khách hàng. Bao gồm cả ads, tool, và overhead.</div>
+    </div>
+    <div class="glossary-item">
+      <div class="glossary-term">CR</div>
+      <div class="glossary-def">Conversion Rate. % người vào store và mua. Store tốt có CR 2–4%. Dưới 1% cần xem lại.</div>
+    </div>
+    <div class="glossary-item">
+      <div class="glossary-term">Hook</div>
+      <div class="glossary-def">3 giây đầu của video ad hoặc dòng đầu của copy. Quyết định người xem có dừng lại hay không.</div>
+    </div>
+    <div class="glossary-item">
+      <div class="glossary-term">Offer</div>
+      <div class="glossary-def">Tổng hợp những gì khách nhận được khi mua. Không chỉ là sản phẩm — là bundle, guarantee, bonus.</div>
+    </div>
+    <div class="glossary-item">
+      <div class="glossary-term">Funnel</div>
+      <div class="glossary-def">Toàn bộ hành trình từ khi thấy ads đến khi mua xong. Mỗi bước đều có thể tối ưu được.</div>
+    </div>
+    <div class="glossary-item">
+      <div class="glossary-term">COGS</div>
+      <div class="glossary-def">Cost of Goods Sold. Giá vốn: sản phẩm + shipping từ supplier. Phần đầu tiên cần tính khi xét margin.</div>
+    </div>
+    <div class="glossary-item">
+      <div class="glossary-term">Pre-sell Page</div>
+      <div class="glossary-def">Trang đứng trước product page — thường là advertorial. Làm warm audience trước khi chào sản phẩm.</div>
+    </div>
+    <div class="glossary-item">
+      <div class="glossary-term">Upsell</div>
+      <div class="glossary-def">Đề xuất mua thêm sau khi khách đã quyết định mua. Post-purchase upsell = không ảnh hưởng CR.</div>
+    </div>
+    <div class="glossary-item">
+      <div class="glossary-term">Net Profit</div>
+      <div class="glossary-def">Lợi nhuận thực sau khi trừ hết: COGS + shipping + ads + app + refund. Số này mới là thật.</div>
+    </div>
+    <div class="glossary-item">
+      <div class="glossary-term">Abandon Cart</div>
+      <div class="glossary-def">Khách thêm vào giỏ nhưng không checkout. Email recover abandon cart là một trong những flow có ROI cao nhất.</div>
+    </div>
+    <div class="glossary-item">
+      <div class="glossary-term">Angle</div>
+      <div class="glossary-def">Góc độ tiếp cận sản phẩm trong marketing. Cùng 1 sản phẩm có thể có nhiều angle khác nhau — pain, desire, curiosity, social proof. Angle quyết định ai sẽ dừng lại xem ads của bạn.</div>
+    </div>
+    <div class="glossary-item">
+      <div class="glossary-term">Mechanism</div>
+      <div class="glossary-def">Lý do tại sao sản phẩm hoạt động — cơ chế khoa học hoặc logic đằng sau. Mechanism mạnh giúp differentiate sản phẩm khỏi đối thủ và tăng trust với khách hàng.</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<div class="section-sep"></div>
+
+<!-- ══ SLIDE 5: FUNNEL / CUSTOMER JOURNEY ══ -->
+<section id="s5" data-label="Hành trình">
+<div class="slide-full">
+  <div class="slide-inner">
+    <div class="eyebrow">Phần 04</div>
+    <h2 class="title-lg">Hành trình mua sắm<br><span class="accent-blue">của khách hàng</span></h2>
+    <p class="body-text">Khách hàng không đi thẳng từ "thấy ads" đến "mua". Họ đi qua nhiều điểm chạm. Hiểu từng bước — tối ưu từng bước. Đó là sự khác biệt giữa store thắng và store thua.</p>
+  </div>
+
+  <div class="funnel-wrapper">
+    <div class="slide-inner">
+      <svg class="funnel-svg" viewBox="0 0 980 340" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+            <path d="M0,0 L0,6 L8,3 z" fill="#64748B"/>
+          </marker>
+          <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+            <path d="M0,0 L0,6 L8,3 z" fill="#2563EB"/>
+          </marker>
+        </defs>
+
+        <!-- TRAFFIC SOURCES -->
+        <!-- FB Ad -->
+        <g class="f-node" id="fn-fb">
+          <rect x="10" y="60" width="110" height="44" rx="4" fill="#1A1F2E" stroke="#2563EB" stroke-width="1.5"/>
+          <text x="65" y="80" text-anchor="middle" fill="#E2E8F0" font-family="Space Grotesk" font-size="11" font-weight="600">Facebook Ad</text>
+          <text x="65" y="95" text-anchor="middle" fill="#64748B" font-family="JetBrains Mono" font-size="9">Paid Traffic</text>
+        </g>
+        <!-- Organic -->
+        <g class="f-node" id="fn-org">
+          <rect x="10" y="130" width="110" height="44" rx="4" fill="#1A1F2E" stroke="#10B981" stroke-width="1.5"/>
+          <text x="65" y="150" text-anchor="middle" fill="#E2E8F0" font-family="Space Grotesk" font-size="11" font-weight="600">Organic / Social</text>
+          <text x="65" y="165" text-anchor="middle" fill="#64748B" font-family="JetBrains Mono" font-size="9">Free Traffic</text>
+        </g>
+        <!-- Google -->
+        <g class="f-node" id="fn-gg">
+          <rect x="10" y="200" width="110" height="44" rx="4" fill="#1A1F2E" stroke="#8B5CF6" stroke-width="1.5"/>
+          <text x="65" y="220" text-anchor="middle" fill="#E2E8F0" font-family="Space Grotesk" font-size="11" font-weight="600">Google Search</text>
+          <text x="65" y="235" text-anchor="middle" fill="#64748B" font-family="JetBrains Mono" font-size="9">Brand Search</text>
+        </g>
+
+        <!-- Arrows to Pre-sell -->
+        <line x1="120" y1="82" x2="185" y2="120" stroke="#64748B" stroke-width="1" marker-end="url(#arr)"/>
+        <line x1="120" y1="152" x2="185" y2="152" stroke="#64748B" stroke-width="1" marker-end="url(#arr)"/>
+        <line x1="120" y1="222" x2="185" y2="190" stroke="#64748B" stroke-width="1" marker-end="url(#arr)"/>
+
+        <!-- PRE-SELL / ADVERTORIAL -->
+        <g class="f-node" id="fn-pre">
+          <rect x="188" y="110" width="120" height="56" rx="4" fill="#1A1F2E" stroke="#F59E0B" stroke-width="1.5"/>
+          <text x="248" y="133" text-anchor="middle" fill="#E2E8F0" font-family="Space Grotesk" font-size="11" font-weight="600">Pre-sell Page</text>
+          <text x="248" y="150" text-anchor="middle" fill="#F59E0B" font-family="JetBrains Mono" font-size="9">Advertorial</text>
+        </g>
+
+        <!-- Arrow Pre-sell → Product -->
+        <line x1="308" y1="138" x2="358" y2="138" stroke="#64748B" stroke-width="1" marker-end="url(#arr)"/>
+
+        <!-- PRODUCT PAGE -->
+        <g class="f-node" id="fn-pdp">
+          <rect x="360" y="110" width="120" height="56" rx="4" fill="#1A1F2E" stroke="#2563EB" stroke-width="2"/>
+          <text x="420" y="133" text-anchor="middle" fill="#E2E8F0" font-family="Space Grotesk" font-size="11" font-weight="600">Product Page</text>
+          <text x="420" y="150" text-anchor="middle" fill="#2563EB" font-family="JetBrains Mono" font-size="9">Offer Page</text>
+        </g>
+
+        <!-- No → Popup -->
+        <line x1="420" y1="166" x2="420" y2="210" stroke="#64748B" stroke-width="1" stroke-dasharray="3,3" marker-end="url(#arr)"/>
+        <text x="428" y="195" fill="#64748B" font-family="JetBrains Mono" font-size="9">No</text>
+        <g class="f-node" id="fn-popup">
+          <rect x="358" y="212" width="120" height="40" rx="4" fill="#1A1F2E" stroke="#64748B" stroke-width="1"/>
+          <text x="418" y="228" text-anchor="middle" fill="#94A3B8" font-family="Space Grotesk" font-size="10" font-weight="500">Email Popup</text>
+          <text x="418" y="242" text-anchor="middle" fill="#64748B" font-family="JetBrains Mono" font-size="9">Collect lead</text>
+        </g>
+
+        <!-- Yes → Checkout -->
+        <line x1="480" y1="138" x2="530" y2="138" stroke="#2563EB" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+        <text x="503" y="130" fill="#2563EB" font-family="JetBrains Mono" font-size="9">Yes</text>
+
+        <!-- CHECKOUT -->
+        <g class="f-node" id="fn-co">
+          <rect x="532" y="110" width="100" height="56" rx="4" fill="#1A1F2E" stroke="#2563EB" stroke-width="1.5"/>
+          <text x="582" y="136" text-anchor="middle" fill="#E2E8F0" font-family="Space Grotesk" font-size="11" font-weight="600">Checkout</text>
+          <text x="582" y="152" text-anchor="middle" fill="#64748B" font-family="JetBrains Mono" font-size="9">Shopify</text>
+        </g>
+
+        <!-- No checkout → Abandon cart -->
+        <line x1="582" y1="166" x2="582" y2="210" stroke="#64748B" stroke-width="1" stroke-dasharray="3,3" marker-end="url(#arr)"/>
+        <text x="590" y="195" fill="#64748B" font-family="JetBrains Mono" font-size="9">No</text>
+        <g class="f-node" id="fn-ab">
+          <rect x="530" y="212" width="104" height="40" rx="4" fill="#1A1F2E" stroke="#EF4444" stroke-width="1"/>
+          <text x="582" y="228" text-anchor="middle" fill="#94A3B8" font-family="Space Grotesk" font-size="10" font-weight="500">Abandon Cart</text>
+          <text x="582" y="242" text-anchor="middle" fill="#EF4444" font-family="JetBrains Mono" font-size="9">Email recover</text>
+        </g>
+
+        <!-- Yes → Purchase -->
+        <line x1="632" y1="138" x2="678" y2="138" stroke="#2563EB" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+        <text x="648" y="130" fill="#2563EB" font-family="JetBrains Mono" font-size="9">Yes</text>
+
+        <!-- PURCHASE -->
+        <g class="f-node" id="fn-pur">
+          <ellipse cx="710" cy="138" rx="56" ry="30" fill="#0F2D1A" stroke="#10B981" stroke-width="2"/>
+          <text x="710" y="134" text-anchor="middle" fill="#10B981" font-family="Space Grotesk" font-size="11" font-weight="700">Purchase</text>
+          <text x="710" y="148" text-anchor="middle" fill="#10B981" font-family="JetBrains Mono" font-size="9">✓ Order placed</text>
+        </g>
+
+        <!-- → Post-purchase Upsell -->
+        <line x1="766" y1="138" x2="808" y2="138" stroke="#10B981" stroke-width="1.5" marker-end="url(#arr)"/>
+
+        <!-- POST PURCHASE UPSELL -->
+        <g class="f-node" id="fn-up">
+          <rect x="810" y="110" width="120" height="56" rx="4" fill="#1A1F2E" stroke="#8B5CF6" stroke-width="1.5"/>
+          <text x="870" y="133" text-anchor="middle" fill="#E2E8F0" font-family="Space Grotesk" font-size="10" font-weight="600">Post-Purchase</text>
+          <text x="870" y="148" text-anchor="middle" fill="#E2E8F0" font-family="Space Grotesk" font-size="10" font-weight="600">Upsell</text>
+          <text x="870" y="160" text-anchor="middle" fill="#8B5CF6" font-family="JetBrains Mono" font-size="9">+AOV</text>
+        </g>
+
+        <!-- → Thank You + Email -->
+        <line x1="930" y1="120" x2="930" y2="60" stroke="#64748B" stroke-width="1" stroke-dasharray="3,3"/>
+        <line x1="930" y1="60" x2="65" y2="60" stroke="#64748B" stroke-width="1" stroke-dasharray="3,3" marker-end="url(#arr)"/>
+        <text x="500" y="52" text-anchor="middle" fill="#64748B" font-family="JetBrains Mono" font-size="9">Email flow → Retargeting → Repeat purchase</text>
+
+        <!-- Labels dưới -->
+        <text x="248" y="290" text-anchor="middle" fill="#334155" font-family="JetBrains Mono" font-size="9">Warm up</text>
+        <text x="420" y="290" text-anchor="middle" fill="#334155" font-family="JetBrains Mono" font-size="9">Convert</text>
+        <text x="582" y="290" text-anchor="middle" fill="#334155" font-family="JetBrains Mono" font-size="9">Close</text>
+        <text x="710" y="290" text-anchor="middle" fill="#334155" font-family="JetBrains Mono" font-size="9">Win</text>
+        <text x="870" y="290" text-anchor="middle" fill="#334155" font-family="JetBrains Mono" font-size="9">Maximize</text>
+      </svg>
+    </div>
+  </div>
+
+  <div class="slide-inner" style="margin-top:32px;">
+    <div class="card-grid card-grid-3">
+      <div class="card">
+        <div class="card-num">Điểm chạm 1–2</div>
+        <div class="card-title">Traffic → Pre-sell</div>
+        <div class="card-body">Khách thấy ads không mua ngay. Advertorial "làm ấm" — kể câu chuyện, build trust trước khi chào sản phẩm.</div>
+      </div>
+      <div class="card">
+        <div class="card-num">Điểm chạm 3–4</div>
+        <div class="card-title">Product Page → Checkout</div>
+        <div class="card-body">Offer mạnh, social proof, guarantee xóa rủi ro. Khách không checkout? Email abandon cart kéo họ về.</div>
+      </div>
+      <div class="card">
+        <div class="card-num">Điểm chạm 5+</div>
+        <div class="card-title">Post-purchase → Email</div>
+        <div class="card-body">Sau khi mua mới là lúc dễ bán nhất. Upsell ngay, email follow-up, build loyalty để mua lần 2.</div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<div class="section-sep"></div>
+
+<!-- ══ SLIDE 6: ƯU TIÊN ROI ══ -->
+<section id="s6" data-label="Ưu tiên ROI">
+<div class="slide">
+  <div class="eyebrow">Phần 05</div>
+  <h2 class="title-lg">Ưu tiên gì để<br><span class="accent-amber">tối ưu ROI</span></h2>
+  <p class="body-text">Người mới hay muốn làm tất cả cùng lúc. Đó là lý do số 1 để đốt tiền mà không ra kết quả. Có thứ tự đúng — và thứ tự đó quan trọng hơn bạn nghĩ.</p>
+
+  <div class="priority-list">
+    <div class="priority-row">
+      <div class="priority-step">01</div>
+      <div class="priority-content">
+        <div class="priority-title">Validate sản phẩm</div>
+        <div class="priority-desc">Trước khi làm bất cứ thứ gì — chắc chắn sản phẩm có nhu cầu thật. Research đối thủ, phân tích ads đang chạy, kiểm tra margin.</div>
+      </div>
+      <span class="priority-badge tag-green">Làm trước nhất</span>
+    </div>
+
+    <div class="priority-row">
+      <div class="priority-step">02</div>
+      <div class="priority-content">
+        <div class="priority-title">Store đủ tốt để convert</div>
+        <div class="priority-desc">Không cần perfect. Cần đủ trust, đủ rõ ràng, checkout không có lỗi. Store xấu giết campaign tốt.</div>
+      </div>
+      <span class="priority-badge tag-blue">Trước khi chạy ads</span>
+    </div>
+
+    <div class="priority-row">
+      <div class="priority-step">03</div>
+      <div class="priority-content">
+        <div class="priority-title">Ads test nhỏ — đọc data</div>
+        <div class="priority-desc">Bắt đầu với budget nhỏ. Mục tiêu không phải kiếm tiền ngay — là học được gì audience phản ứng với sản phẩm.</div>
+      </div>
+      <span class="priority-badge tag-amber">Sau khi store xong</span>
+    </div>
+
+    <div class="priority-row">
+      <div class="priority-step">04</div>
+      <div class="priority-content">
+        <div class="priority-title">Scale ads khi có winner</div>
+        <div class="priority-desc">Chỉ scale khi ROAS ổn định ít nhất 3–5 ngày. Scale quá sớm = phá learning phase = đốt tiền.</div>
+      </div>
+      <span class="priority-badge tag-purple">Khi có data tốt</span>
+    </div>
+
+    <div class="priority-row">
+      <div class="priority-step">05</div>
+      <div class="priority-content">
+        <div class="priority-title">Email marketing — sau khi có data</div>
+        <div class="priority-desc">Email cần có khách hàng thật để làm việc. Setup Klaviyo sau khi đã có đơn hàng — không phải từ ngày đầu.</div>
+      </div>
+      <span class="priority-badge" style="background:rgba(100,116,139,0.1);color:#64748B;border:1px solid rgba(100,116,139,0.2);">Sau khi có đơn</span>
+    </div>
+  </div>
+
+  <div class="warning">
+    <div class="warning-label">Sai lầm phổ biến nhất</div>
+    <div class="warning-text">Làm email marketing từ ngày 1, tối ưu store mãi không chạy ads, scale ngay khi thấy vài đơn đầu tiên. Làm ngược thứ tự này không chỉ tốn tiền — nó tốn thời gian và năng lượng vào chỗ chưa cần thiết.</div>
+  </div>
+</div>
+</section>
+
+<div class="section-sep"></div>
+
+<!-- ══ FAQ ══ -->
+<section id="s6b" data-label="FAQ" class="bg-alt">
+<div class="slide">
+  <div class="eyebrow">Q&A</div>
+  <h2 class="title-lg">Câu hỏi<br><span class="accent-amber">thường gặp</span></h2>
+
+  <!-- FAQ 1 -->
+  <div style="margin-top:48px; border-top:1px solid var(--rule);">
+
+    <div style="padding:32px 0; border-bottom:1px solid var(--rule);">
+      <div style="font-family:'Space Grotesk',sans-serif; font-size:18px; font-weight:600; color:var(--text); margin-bottom:20px;">
+        Cần bao nhiêu vốn để bắt đầu?
+      </div>
+      <div style="font-size:15px; color:rgba(226,232,240,0.75); line-height:1.8; max-width:720px;">
+        <p style="margin-bottom:16px;">Với mình, khi build một thứ gì đó từ con số 0, mình coi đây là một <strong style="color:var(--text)">dự án kinh doanh</strong> — mà đã khởi nghiệp thì phải có vốn. Mình luôn để ra <strong style="color:var(--amber)">$3,000 cho mỗi dự án mới</strong>.</p>
+        <p style="margin-bottom:16px;">Ví dụ cách tính: AOV $100, CAC mục tiêu $50, target 50 conversions → tổng ads $2,500. Cộng tool, app, nhập mẫu, KOC vài trăm đô → tổng $3,000. Từ đó thấy được dự án có khả thi không.</p>
+        <p style="margin-bottom:16px;">Nếu lỗ? Thường không lỗ nhiều — vì chạy ads vài trăm đô mà không ra đơn thì dừng luôn, không ai tiêu hết $3,000 mà không có sale. Thường tiêu $3,000, về $3,000–4,000 doanh số, chỉ lỗ tiền hàng.</p>
+      </div>
+      <div style="margin-top:20px; display:grid; grid-template-columns:1fr 1fr; gap:2px;">
+        <div style="background:var(--surface); border:1px solid var(--rule); padding:20px 20px;">
+          <div style="font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--green); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:10px;">Phương án 1 — Fix</div>
+          <div style="font-size:13px; color:rgba(226,232,240,0.65); line-height:1.65;">Tìm vấn đề đang ở đâu — ads, sản phẩm, hay hệ thống. Tối ưu từng phần và test lại.</div>
+        </div>
+        <div style="background:var(--surface); border:1px solid var(--rule); padding:20px 20px;">
+          <div style="font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--blue); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:10px;">Phương án 2 — Làm mới</div>
+          <div style="font-size:13px; color:rgba(226,232,240,0.65); line-height:1.65;">Nhiều kinh nghiệm hơn, cảm nhận tốt hơn, skill cao hơn, hệ thống thuần thục hơn — kết quả sẽ cao hơn.</div>
+        </div>
+      </div>
+      <div class="insight" style="margin-top:20px;">
+        <div class="insight-label">Quan trọng</div>
+        <div class="insight-text">Mình dạy kỹ năng làm Ecom — không phải dựa vào may mắn test nhiều sản phẩm để có cái win.</div>
+      </div>
+    </div>
+
+    <!-- FAQ 2 -->
+    <div style="padding:32px 0; border-bottom:1px solid var(--rule);">
+      <div style="font-family:'Space Grotesk',sans-serif; font-size:18px; font-weight:600; color:var(--text); margin-bottom:20px;">
+        AI đang làm tốt những công việc nào?
+      </div>
+      <div class="glossary-grid" style="margin-top:0;">
+        <div class="glossary-item">
+          <div class="glossary-term" style="color:var(--blue);">Phân tích</div>
+          <div class="glossary-def">Demand, angle, avatar — AI giúp research nhanh hơn và sâu hơn so với làm tay.</div>
+        </div>
+        <div class="glossary-item">
+          <div class="glossary-term" style="color:var(--blue);">Landing Page</div>
+          <div class="glossary-def">Viết copy, structure advertorial, build trang sản phẩm — AI rút ngắn từ ngày xuống giờ.</div>
+        </div>
+        <div class="glossary-item">
+          <div class="glossary-term" style="color:var(--blue);">Video Organic</div>
+          <div class="glossary-def">Script, voiceover, edit cơ bản — AI làm được phần lớn quy trình sản xuất content organic.</div>
+        </div>
+        <div class="glossary-item">
+          <div class="glossary-term" style="color:var(--blue);">Video Ads</div>
+          <div class="glossary-def">UGC-style, hook testing, talking head — chi phí rẻ hơn 10x so với thuê người quay thật.</div>
+        </div>
+        <div class="glossary-item">
+          <div class="glossary-term" style="color:var(--blue);">Image Ads</div>
+          <div class="glossary-def">Gen ảnh sản phẩm, lifestyle shots, infographic ads — không cần photographer hay studio.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ 3 -->
+    <div style="padding:32px 0;">
+      <div style="font-family:'Space Grotesk',sans-serif; font-size:18px; font-weight:600; color:var(--text); margin-bottom:20px;">
+        Có nên upsell nhiều không?
+      </div>
+      <div style="font-size:15px; color:rgba(226,232,240,0.75); line-height:1.8; max-width:720px;">
+        <p><strong style="color:var(--text)">Bắt buộc phải upsell nhiều.</strong> Nhiều người có cảm giác sợ hoặc tội lỗi khi bán giá cao hoặc bán nhiều item một lúc — nhưng nếu bạn không làm vậy, khách hàng sẽ mua ở chỗ khác.</p>
+      </div>
+      <div class="warning" style="margin-top:20px;">
+        <div class="warning-label">Mindset đúng</div>
+        <div class="warning-text">Upsell không phải ép mua — là giúp khách hàng lấy đủ thứ họ cần trong một lần. Người không upsell đang để tiền trên bàn cho đối thủ nhặt.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</section>
+
+<div class="section-sep"></div>
+
+<!-- ══ PAYMENT & PHÁP NHÂN ══ -->
+<section id="s7" data-label="Payment & Pháp nhân">
+<div class="slide">
+  <div class="eyebrow">Phần 06</div>
+  <h2 class="title-lg">Payment<br><span class="accent-blue">& Pháp nhân</span></h2>
+  <p class="body-text">Hai lựa chọn phổ biến nhất với seller Việt Nam: <strong>US LLC</strong> và <strong>Hong Kong Ltd</strong>. Không có lựa chọn nào đúng hoàn toàn — tuỳ giai đoạn và mục tiêu.</p>
+
+  <!-- Comparison table -->
+  <table class="model-table" style="margin-top:40px;">
+    <thead>
+      <tr>
+        <th>Tiêu chí</th>
+        <th>🇺🇸 US LLC</th>
+        <th>🇭🇰 Hong Kong Ltd</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Setup time</td>
+        <td>2–4 tuần</td>
+        <td>1 tuần</td>
+      </tr>
+      <tr>
+        <td>Chi phí thành lập</td>
+        <td>~$200–300</td>
+        <td>~$700+</td>
+      </tr>
+      <tr>
+        <td>Chi phí duy trì/năm</td>
+        <td>~$60–150 (annual fee + registered agent)</td>
+        <td>Cao hơn — company secretary bắt buộc (~$300–500/năm)</td>
+      </tr>
+      <tr>
+        <td>Tax</td>
+        <td>0% federal với non-US resident (pass-through). Bắt buộc file Form 5472 hàng năm dù $0 income — penalty $25,000 nếu bỏ</td>
+        <td>8.25% trên HK$2M profit đầu tiên, 16.5% sau đó. Nếu toàn bộ revenue từ ngoài HK → có thể apply offshore exemption → 0%</td>
+      </tr>
+      <tr>
+        <td>Cổng thanh toán</td>
+        <td>Shopify Payments (US), Stripe US, Affirm, PayPal</td>
+        <td>Shopify Payments (HK), Stripe HK, PayPal, Airwallex, Payoneer Checkout</td>
+      </tr>
+      <tr>
+        <td>Paygate fee</td>
+        <td>~2.9% + $0.30 (Stripe US)</td>
+        <td>Thường cao hơn US ~0.5–1%</td>
+      </tr>
+      <tr>
+        <td>Payout time</td>
+        <td>2–5 ngày</td>
+        <td>7 ngày</td>
+      </tr>
+      <tr>
+        <td>Banking</td>
+        <td>Wise Business, WorldFirst, Payoneer — mở remote được. Mercury đã từ bỏ VN</td>
+        <td>Airwallex, WorldFirst, Wise — tương tự</td>
+      </tr>
+      <tr>
+        <td>Phù hợp với ai</td>
+        <td>Seller mới, muốn Shopify Payments + Stripe US, bán thị trường US là chính</td>
+        <td>Seller đã có revenue, muốn tối ưu tax dài hạn, bán đa thị trường US/EU/AU</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Key notes -->
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:2px; margin-top:32px;">
+    <div class="warning">
+      <div class="warning-label">⚠️ Lưu ý US LLC</div>
+      <div class="warning-text">Bắt buộc file Form 5472 + Form 1120 mỗi năm dù không có doanh thu. Penalty $25,000/năm nếu bỏ sót. Nhiều seller Việt không biết điều này.</div>
+    </div>
+    <div class="insight">
+      <div class="insight-label">💡 Cách nhiều seller dùng</div>
+      <div class="insight-text">HK Ltd là entity chính để vận hành, US LLC để nhận payment từ Stripe US. Dùng cả hai để tối ưu cổng thanh toán và tax.</div>
+    </div>
+  </div>
+
+  <div class="warning" style="margin-top:2px; max-width:100%;">
+    <div class="warning-label">Lưu ý về banking 2025–2026</div>
+    <div class="warning-text">Mercury đã thắt chặt và không còn phù hợp với seller Việt. Wise Business hiện là lựa chọn nhanh nhất (approve 24h, phí $31 one-time để lấy US routing number). WorldFirst và Payoneer vẫn là lựa chọn quen thuộc và ổn định.</div>
+  </div>
+
+  <!-- Cash flow diagram -->
+  <div style="margin-top:48px;">
+    <div class="section-label">Quy trình dòng tiền</div>
+    <div style="margin-top:24px; overflow-x:auto;">
+      <svg viewBox="0 0 860 160" fill="none" xmlns="http://www.w3.org/2000/svg" style="min-width:600px; width:100%; display:block;">
+        <defs>
+          <marker id="cf-arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+            <path d="M0,0 L0,6 L8,3 z" fill="#2563EB"/>
+          </marker>
+        </defs>
+
+        <!-- Step 1: Khách hàng -->
+        <g>
+          <rect x="10" y="44" width="150" height="72" rx="6" fill="#1A1F2E" stroke="#10B981" stroke-width="1.5"/>
+          <text x="85" y="76" text-anchor="middle" fill="#10B981" font-family="Space Grotesk" font-size="13" font-weight="700">Khách hàng</text>
+          <text x="85" y="95" text-anchor="middle" fill="#64748B" font-family="JetBrains Mono" font-size="10">US / UK / AU / CA</text>
+          <text x="85" y="110" text-anchor="middle" fill="#64748B" font-family="JetBrains Mono" font-size="10">Credit card / PayPal</text>
+        </g>
+
+        <!-- Arrow 1 -->
+        <line x1="162" y1="80" x2="198" y2="80" stroke="#2563EB" stroke-width="1.5" marker-end="url(#cf-arr)"/>
+        <text x="180" y="72" text-anchor="middle" fill="#64748B" font-family="JetBrains Mono" font-size="9">Pay</text>
+
+        <!-- Step 2: Cổng thanh toán -->
+        <g>
+          <rect x="200" y="44" width="155" height="72" rx="6" fill="#1A1F2E" stroke="#2563EB" stroke-width="1.5"/>
+          <text x="277" y="73" text-anchor="middle" fill="#E2E8F0" font-family="Space Grotesk" font-size="13" font-weight="700">Cổng thanh toán</text>
+          <text x="277" y="91" text-anchor="middle" fill="#2563EB" font-family="JetBrains Mono" font-size="10">Stripe · Shopify Payments</text>
+          <text x="277" y="107" text-anchor="middle" fill="#2563EB" font-family="JetBrains Mono" font-size="10">PayPal · Airwallex</text>
+        </g>
+
+        <!-- Arrow 2 -->
+        <line x1="357" y1="80" x2="393" y2="80" stroke="#2563EB" stroke-width="1.5" marker-end="url(#cf-arr)"/>
+        <text x="375" y="72" text-anchor="middle" fill="#64748B" font-family="JetBrains Mono" font-size="9">Payout</text>
+
+        <!-- Step 3: Bank nước ngoài -->
+        <g>
+          <rect x="395" y="44" width="175" height="72" rx="6" fill="#1A1F2E" stroke="#F59E0B" stroke-width="1.5"/>
+          <text x="482" y="73" text-anchor="middle" fill="#E2E8F0" font-family="Space Grotesk" font-size="13" font-weight="700">Bank nước ngoài</text>
+          <text x="482" y="91" text-anchor="middle" fill="#F59E0B" font-family="JetBrains Mono" font-size="10">WorldFirst · PingPong</text>
+          <text x="482" y="107" text-anchor="middle" fill="#F59E0B" font-family="JetBrains Mono" font-size="10">Wise · Payoneer</text>
+        </g>
+
+        <!-- Arrow 3 -->
+        <line x1="572" y1="80" x2="608" y2="80" stroke="#2563EB" stroke-width="1.5" marker-end="url(#cf-arr)"/>
+        <text x="590" y="72" text-anchor="middle" fill="#64748B" font-family="JetBrains Mono" font-size="9">Chuyển về</text>
+
+        <!-- Step 4: Bank Việt Nam -->
+        <g>
+          <rect x="610" y="44" width="150" height="72" rx="6" fill="#1A1F2E" stroke="#8B5CF6" stroke-width="1.5"/>
+          <text x="685" y="73" text-anchor="middle" fill="#E2E8F0" font-family="Space Grotesk" font-size="13" font-weight="700">Bank Việt Nam</text>
+          <text x="685" y="91" text-anchor="middle" fill="#8B5CF6" font-family="JetBrains Mono" font-size="10">Vietcombank · Techcombank</text>
+          <text x="685" y="107" text-anchor="middle" fill="#8B5CF6" font-family="JetBrains Mono" font-size="10">MB Bank · ACB...</text>
+        </g>
+
+        <!-- Timeline labels -->
+        <line x1="10" y1="140" x2="760" y2="140" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+        <text x="85" y="155" text-anchor="middle" fill="#334155" font-family="JetBrains Mono" font-size="9">Realtime</text>
+        <text x="277" y="155" text-anchor="middle" fill="#334155" font-family="JetBrains Mono" font-size="9">T+0 → T+1</text>
+        <text x="482" y="155" text-anchor="middle" fill="#334155" font-family="JetBrains Mono" font-size="9">Payout 2–7 ngày</text>
+        <text x="685" y="155" text-anchor="middle" fill="#334155" font-family="JetBrains Mono" font-size="9">1–2 ngày làm việc</text>
+      </svg>
+    </div>
+
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:2px; margin-top:24px;">
+      <div class="card">
+        <div class="card-num">Lưu ý 01</div>
+        <div class="card-title" style="font-size:14px;">Tỷ giá chuyển đổi</div>
+        <div class="card-body">Wise tỷ giá mid-market tốt nhất (~0.5%). WorldFirst và PingPong cũng cạnh tranh. Payoneer markup cao hơn (~2%). So sánh thực tế trước khi chọn.</div>
+      </div>
+      <div class="card">
+        <div class="card-num">Lưu ý 02</div>
+        <div class="card-title" style="font-size:14px;">Không chuyển thẳng về VN</div>
+        <div class="card-body">Stripe không hỗ trợ chuyển thẳng về tài khoản VND. Bắt buộc qua trung gian như WorldFirst, Wise, Payoneer trước.</div>
+      </div>
+      <div class="card">
+        <div class="card-num">Lưu ý 03</div>
+        <div class="card-title" style="font-size:14px;">Tổng thời gian</div>
+        <div class="card-body">Từ lúc khách pay đến khi tiền về VN: thường 5–10 ngày làm việc. Cần tính vào cash flow khi scale budget ads.</div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<div class="section-sep"></div>
+
+<!-- ══ FOOTER / END SLIDE ══ -->
+<section id="s8" data-label="Kết thúc">
+<div class="hero-slide" style="text-align:center; align-items:center;">
+  <div class="eyebrow" style="justify-content:center;">Buổi 01 — Kết thúc</div>
+  <h2 class="title-lg">Hẹn gặp lại<br><span class="accent-blue">buổi sau</span></h2>
+  <div style="margin-top:40px; font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--muted); letter-spacing:0.08em;">
+    Ecom Hater K3 · Quang Vinh Ecom
+  </div>
+</div>
+</section>
+
+<script>
+// Progress bar
+const progressBar = document.getElementById('progress');
+window.addEventListener('scroll', () => {
+  const total = document.body.scrollHeight - window.innerHeight;
+  const pct = (window.scrollY / total) * 100;
+  progressBar.style.width = pct + '%';
+});
+
+// Nav dots
+const sections = document.querySelectorAll('section[id]');
+const dotsContainer = document.getElementById('navDots');
+
+sections.forEach((sec, i) => {
+  const dot = document.createElement('div');
+  dot.className = 'nav-dot';
+  dot.title = sec.dataset.label || '';
+  dot.addEventListener('click', () => {
+    sec.scrollIntoView({ behavior: 'smooth' });
+  });
+  dotsContainer.appendChild(dot);
+});
+
+const dots = document.querySelectorAll('.nav-dot');
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const idx = Array.from(sections).indexOf(entry.target);
+      dots.forEach(d => d.classList.remove('active'));
+      if (dots[idx]) dots[idx].classList.add('active');
+    }
+  });
+}, { threshold: 0.4 });
+
+sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>

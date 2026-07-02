@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checklist Build Store A-Z | Ecom Hater K3</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #0F1117; --surface: #1A1F2E; --surface2: #222840;
+  --blue: #2563EB; --blue-glow: rgba(37,99,235,0.15);
+  --amber: #F59E0B; --amber-dim: rgba(245,158,11,0.12);
+  --text: #E2E8F0; --muted: #64748B; --rule: rgba(255,255,255,0.07);
+  --green: #10B981; --red: #EF4444; --purple: #8B5CF6;
+}
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+/* ── STICKY HEADER WITH PROGRESS ── */
+header {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(15,17,23,0.95); backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--rule);
+  padding: 18px 32px;
+}
+.header-row { max-width: 1000px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+.header-title { font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 600; }
+.header-title span { color: var(--blue); font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 500; letter-spacing: 0.08em; margin-right: 10px; }
+.progress-wrap { display: flex; align-items: center; gap: 12px; flex: 1; max-width: 380px; }
+.progress-track { flex: 1; height: 8px; background: var(--surface2); border-radius: 4px; overflow: hidden; }
+.progress-fill { height: 100%; background: linear-gradient(90deg, var(--blue), var(--green)); width: 0%; transition: width 0.3s; border-radius: 4px; }
+.progress-text { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--muted); white-space: nowrap; }
+.reset-btn { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--muted); background: none; border: 1px solid var(--rule); padding: 6px 14px; border-radius: 2px; cursor: pointer; transition: all 0.15s; }
+.reset-btn:hover { border-color: var(--red); color: var(--red); }
+
+/* ── HERO ── */
+.intro { max-width: 1000px; margin: 0 auto; padding: 56px 32px 40px; }
+.eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--blue); margin-bottom: 18px; display: flex; align-items: center; gap: 10px; }
+.eyebrow::before { content: ''; display: inline-block; width: 24px; height: 1px; background: var(--blue); }
+.title-xl { font-family: 'Space Grotesk', sans-serif; font-size: clamp(32px, 5vw, 52px); font-weight: 700; line-height: 1.1; letter-spacing: -0.025em; margin-bottom: 18px; }
+.title-xl .accent { color: var(--blue); }
+.body-text { font-size: 16px; font-weight: 300; color: rgba(226,232,240,0.7); line-height: 1.7; max-width: 680px; }
+.body-text strong { color: var(--text); font-weight: 500; }
+
+/* ── GROUP NAV PILLS ── */
+.group-nav { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 28px; }
+.group-pill { font-family: 'JetBrains Mono', monospace; font-size: 11px; padding: 7px 14px; border-radius: 2px; border: 1px solid var(--rule); color: var(--muted); cursor: pointer; transition: all 0.15s; display: flex; align-items: center; gap: 8px; }
+.group-pill:hover { border-color: var(--blue); color: var(--blue); }
+.group-pill .count { font-size: 10px; opacity: 0.7; }
+
+/* ── MAIN CONTENT ── */
+main { max-width: 1000px; margin: 0 auto; padding: 0 32px 80px; }
+
+.group-section { margin-top: 56px; }
+.group-header { display: flex; align-items: baseline; gap: 16px; padding-bottom: 16px; border-bottom: 1px solid var(--rule); margin-bottom: 4px; }
+.group-num { font-family: 'Space Grotesk', sans-serif; font-size: 32px; font-weight: 700; color: rgba(37,99,235,0.3); line-height: 1; }
+.group-title { font-family: 'Space Grotesk', sans-serif; font-size: 24px; font-weight: 700; }
+.group-sub { font-size: 13px; color: var(--muted); margin-top: 4px; }
+.group-progress { margin-left: auto; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--muted); white-space: nowrap; }
+
+/* ── CHECKLIST ITEMS ── */
+.check-list { display: flex; flex-direction: column; gap: 2px; margin-top: 16px; }
+.check-item {
+  display: grid; grid-template-columns: 28px 1fr; gap: 16px; align-items: start;
+  background: var(--surface); border: 1px solid var(--rule); padding: 16px 20px;
+  cursor: pointer; transition: background 0.15s, border-color 0.15s;
+}
+.check-item:hover { background: var(--surface2); border-color: rgba(37,99,235,0.2); }
+.check-item.done { background: rgba(16,185,129,0.05); border-color: rgba(16,185,129,0.2); }
+.check-item.done .check-title { color: rgba(226,232,240,0.45); text-decoration: line-through; }
+.check-item.done .check-desc { opacity: 0.5; }
+
+.checkbox {
+  width: 20px; height: 20px; border-radius: 4px; border: 1.5px solid var(--muted);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px;
+  transition: all 0.15s; background: transparent;
+}
+.check-item.done .checkbox { background: var(--green); border-color: var(--green); }
+.checkbox svg { width: 12px; height: 12px; opacity: 0; transition: opacity 0.15s; stroke: #0F1117; stroke-width: 3; fill: none; }
+.check-item.done .checkbox svg { opacity: 1; }
+
+.check-title { font-size: 14.5px; font-weight: 600; color: var(--text); margin-bottom: 4px; line-height: 1.4; }
+.check-desc { font-size: 12.5px; color: rgba(226,232,240,0.55); line-height: 1.6; }
+.check-tag { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 9.5px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; padding: 2px 7px; border-radius: 2px; margin-top: 6px; }
+.check-link {
+  display: inline-flex; align-items: center; gap: 6px; margin-top: 10px;
+  font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600;
+  color: #0F1117; background: var(--blue); padding: 7px 14px; border-radius: 3px;
+  text-decoration: none; transition: background 0.15s;
+}
+.check-link:hover { background: #60A5FA; }
+.check-link svg { width: 12px; height: 12px; stroke: #0F1117; fill: none; stroke-width: 2.5; }
+.tag-critical { background: rgba(239,68,68,0.12); color: var(--red); border: 1px solid rgba(239,68,68,0.25); }
+.tag-recommend { background: rgba(245,158,11,0.12); color: var(--amber); border: 1px solid rgba(245,158,11,0.25); }
+
+/* ── COMPLETION BANNER ── */
+.completion-banner {
+  margin-top: 56px; padding: 40px 36px; text-align: center;
+  background: linear-gradient(135deg, rgba(16,185,129,0.08), rgba(37,99,235,0.05));
+  border: 1px solid rgba(16,185,129,0.25); display: none;
+}
+.completion-banner.show { display: block; }
+.completion-banner .icon { font-size: 40px; margin-bottom: 12px; }
+.completion-banner .title { font-family: 'Space Grotesk', sans-serif; font-size: 22px; font-weight: 700; color: var(--green); margin-bottom: 8px; }
+.completion-banner .sub { font-size: 14px; color: rgba(226,232,240,0.6); }
+
+footer { text-align: center; padding: 32px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--muted); border-top: 1px solid var(--rule); }
+
+@media (max-width: 640px) {
+  header { padding: 14px 20px; } .intro, main { padding-left: 20px; padding-right: 20px; }
+  .header-row { gap: 12px; } .progress-wrap { max-width: none; width: 100%; order: 3; }
+  .group-progress { margin-left: 0; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-row">
+    <div class="header-title"><span>EH·K3</span>Checklist Build Store A-Z</div>
+    <div class="progress-wrap">
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      <div class="progress-text" id="progressText">0/0</div>
+    </div>
+    <button class="reset-btn" id="resetBtn">Reset</button>
+  </div>
+</header>
+
+<div class="intro">
+  <div class="eyebrow">Buổi bổ trợ · Thực hành</div>
+  <h1 class="title-xl">Build Store<br><span class="accent">Full A-Z</span></h1>
+  <p class="body-text">Tick từng bước khi bạn tự làm store trong buổi học. Tiến độ tự lưu trên máy bạn — đóng tab vẫn giữ nguyên. Mỗi nhóm là 1 giai đoạn của quá trình build store chuyên nghiệp.</p>
+
+  <div class="group-nav" id="groupNav"></div>
+</div>
+
+<main id="main"></main>
+
+<footer>Ecom Hater K3 · Quang Vinh Ecom</footer>
+
+<script>
+const DATA = [
+  {
+    title: "Setup Kỹ Thuật",
+    sub: "Nền tảng kỹ thuật trước khi làm gì khác",
+    items: [
+      { t: "Tạo Shopify trial account", d: "Chọn đúng business type khi setup.", tag: "critical", link: "https://shopify.pxf.io/aes" },
+      { t: "Setup shipping zones & rates", d: "Đúng zone cho US/UK/AU/CA, free shipping threshold nếu áp dụng." },
+      { t: "Tạo Market (Shopify Markets)", d: "Setup thị trường mục tiêu, currency, language phù hợp từng market." },
+      { t: "Chọn và cài theme", d: "Theme free hoặc paid phù hợp ngách — ưu tiên tốc độ load hơn nhiều hiệu ứng." },
+      { t: "Setup app bắt buộc", d: "Review app, upsell app, page builder (GemPages/PageFly nếu cần), tracking pixel app." },
+      { t: "Mua domain riêng", d: "Không dùng domain .myshopify.com mặc định — domain riêng tăng trust ngay từ URL.", tag: "critical" },
+      { t: "Connect domain vào Shopify", d: "Trỏ DNS đúng, verify SSL hoạt động (https khóa xanh)." },
+      { t: "Kết nối cổng thanh toán", d: "Shopify Payments hoặc Stripe/PayPal tuỳ theo entity (US LLC / HK Ltd) đã học buổi trước.", tag: "critical" }
+    ]
+  },
+  {
+    title: "Brand Identity",
+    sub: "Tách biệt khỏi store generic — đây là điều khách hàng cảm nhận đầu tiên",
+    items: [
+      { t: "Chốt tên brand", d: "Ngắn, dễ đọc, dễ nhớ, không trùng trademark — đã học cách check ở buổi sản phẩm." },
+      { t: "Thiết kế logo", d: "Dùng Canva/AI tool, đơn giản, scale tốt ở size nhỏ (favicon, social icon)." },
+      { t: "Chọn color palette", d: "2-3 màu chính + 1 màu accent. Nhất quán xuyên suốt store, ads, packaging." },
+      { t: "Chọn typography", d: "1 font heading + 1 font body. Tránh dùng quá nhiều font khác nhau." },
+      { t: "Upload logo vào theme", d: "Header, favicon, email logo — đồng bộ ở mọi nơi hiển thị." },
+      { t: "Viết brand tagline/slogan", d: "1 câu ngắn thể hiện value proposition, hiển thị dưới logo hoặc trong hero." }
+    ]
+  },
+  {
+    title: "Content Pages",
+    sub: "Trang nội dung tăng trust và compliance — nhiều người bỏ qua, mất sale vì vậy",
+    items: [
+      { t: "Trang chủ (Homepage)", d: "Hero banner, featured product, social proof, navigation rõ ràng." },
+      { t: "Product page chính", d: "Build theo 12 phần PDP đã học — Hero, Social proof, Mechanism, FAQ, Guarantee...", tag: "critical" },
+      { t: "About Us page", d: "Câu chuyện brand — đặc biệt quan trọng nếu dùng angle Founder Story." },
+      { t: "Contact page", d: "Form liên hệ + email support rõ ràng — tăng trust, giảm dispute." },
+      { t: "Shipping Policy", d: "Thời gian giao hàng, khu vực ship, phí ship — minh bạch để giảm support ticket." },
+      { t: "Return & Refund Policy", d: "Điều kiện đổi trả rõ ràng — bắt buộc với hầu hết cổng thanh toán.", tag: "critical" },
+      { t: "Privacy Policy", d: "Bắt buộc theo yêu cầu pháp lý + chính sách Meta/Google Ads.", tag: "critical" },
+      { t: "Terms of Service", d: "Điều khoản dịch vụ — Shopify có template sẵn để tham khảo." },
+      { t: "FAQ page", d: "Trả lời objection phổ biến nhất — giảm tải support, tăng conversion." }
+    ]
+  },
+  {
+    title: "SEO Cơ Bản",
+    sub: "Không tốn tiền ads nhưng vẫn cần làm đúng để Google index được store",
+    items: [
+      { t: "Đặt meta title cho mọi trang", d: "Mỗi trang có title riêng, chứa keyword chính, dưới 60 ký tự." },
+      { t: "Viết meta description", d: "Mô tả ngắn hấp dẫn dưới 160 ký tự, xuất hiện trên kết quả tìm kiếm Google." },
+      { t: "Alt text cho hình ảnh sản phẩm", d: "Giúp Google hiểu ảnh, tăng khả năng lên Google Images." },
+      { t: "Submit sitemap lên Google Search Console", d: "Giúp Google index store nhanh hơn." },
+      { t: "Kiểm tra tốc độ load trang", d: "Dùng PageSpeed Insights — ảnh nặng là nguyên nhân số 1 làm chậm store." },
+      { t: "Setup URL structure sạch", d: "URL ngắn, có keyword, không chứa ký tự rác hoặc số ID dài." }
+    ]
+  },
+  {
+    title: "Trước Khi Launch",
+    sub: "Bước cuối — kiểm tra kỹ trước khi đổ tiền ads vào store",
+    items: [
+      { t: "Cài Meta Pixel + Conversion API", d: "Tracking chính xác là điều kiện sống còn để tối ưu ads sau này.", tag: "critical" },
+      { t: "Test checkout end-to-end", d: "Tự mua thử bằng thẻ thật hoặc test mode — đảm bảo không có lỗi nào.", tag: "critical" },
+      { t: "Test trên mobile", d: "70-80% traffic từ mobile — store phải mượt trên điện thoại, không chỉ desktop." },
+      { t: "Kiểm tra tốc độ load toàn site", d: "Mọi trang chính đều load dưới 3 giây." },
+      { t: "Verify Pixel hoạt động đúng", d: "Dùng Meta Pixel Helper extension kiểm tra event fire chính xác (ViewContent, AddToCart, Purchase)." },
+      { t: "Setup abandon cart email", d: "Klaviyo hoặc Shopify Email — bắt traffic bỏ giỏ hàng tự động." },
+      { t: "Kiểm tra tất cả link hoạt động", d: "Navigation, footer, social icon — không có link chết (404)." },
+      { t: "Setup email professional", d: "support@tenbrand.com thay vì gmail cá nhân — tăng trust." },
+      { t: "Review toàn bộ copy một lần cuối", d: "Lỗi chính tả, lỗi ngữ pháp tiếng Anh — soi kỹ trước khi public.", tag: "recommend" }
+    ]
+  }
+];
+
+const main = document.getElementById('main');
+const groupNav = document.getElementById('groupNav');
+const STORAGE_KEY = 'eh-k3-checklist-az';
+
+let state = {};
+try {
+  const saved = localStorage.getItem(STORAGE_KEY);
+  if (saved) state = JSON.parse(saved);
+} catch(e) { state = {}; }
+
+function save() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch(e) {}
+}
+
+function checkSvg() {
+  return '<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+}
+
+function render() {
+  main.innerHTML = '';
+  groupNav.innerHTML = '';
+  let totalItems = 0, totalDone = 0;
+
+  DATA.forEach((group, gi) => {
+    const section = document.createElement('div');
+    section.className = 'group-section';
+    section.id = 'group-' + gi;
+
+    let groupDone = 0;
+    group.items.forEach((_, ii) => { if (state[gi+'-'+ii]) groupDone++; });
+
+    section.innerHTML = `
+      <div class="group-header">
+        <div class="group-num">${String(gi+1).padStart(2,'0')}</div>
+        <div>
+          <div class="group-title">${group.title}</div>
+          <div class="group-sub">${group.sub}</div>
+        </div>
+        <div class="group-progress">${groupDone}/${group.items.length}</div>
+      </div>
+      <div class="check-list">
+        ${group.items.map((item, ii) => {
+          const key = gi + '-' + ii;
+          const done = !!state[key];
+          totalItems++;
+          if (done) totalDone++;
+          return `
+            <div class="check-item ${done ? 'done' : ''}" data-key="${key}">
+              <div class="checkbox">${checkSvg()}</div>
+              <div>
+                <div class="check-title">${item.t}</div>
+                <div class="check-desc">${item.d}</div>
+                ${item.tag === 'critical' ? '<span class="check-tag tag-critical">Bắt buộc</span>' : ''}
+                ${item.tag === 'recommend' ? '<span class="check-tag tag-recommend">Nên làm</span>' : ''}
+                ${item.link ? `<br><a href="${item.link}" target="_blank" rel="noopener" class="check-link">Mở link <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></a>` : ''}
+              </div>
+            </div>
+          `;
+        }).join('')}
+      </div>
+    `;
+    main.appendChild(section);
+
+    const pill = document.createElement('div');
+    pill.className = 'group-pill';
+    pill.innerHTML = `${group.title} <span class="count">${groupDone}/${group.items.length}</span>`;
+    pill.addEventListener('click', () => {
+      document.getElementById('group-' + gi).scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+    groupNav.appendChild(pill);
+  });
+
+  // Completion banner
+  const oldBanner = document.getElementById('completionBanner');
+  if (oldBanner) oldBanner.remove();
+  if (totalDone === totalItems && totalItems > 0) {
+    const banner = document.createElement('div');
+    banner.className = 'completion-banner show';
+    banner.id = 'completionBanner';
+    banner.innerHTML = `<div class="icon">✓</div><div class="title">Store đã sẵn sàng launch</div><div class="sub">Tất cả ${totalItems} mục đã hoàn thành. Giờ là lúc đổ traffic vào.</div>`;
+    main.appendChild(banner);
+  }
+
+  document.getElementById('progressFill').style.width = (totalItems ? (totalDone/totalItems*100) : 0) + '%';
+  document.getElementById('progressText').textContent = totalDone + '/' + totalItems;
+
+  document.querySelectorAll('.check-item').forEach(el => {
+    el.addEventListener('click', (e) => {
+      if (e.target.closest('a')) return;
+      const key = el.dataset.key;
+      state[key] = !state[key];
+      save();
+      render();
+    });
+  });
+}
+
+document.getElementById('resetBtn').addEventListener('click', () => {
+  if (confirm('Reset toàn bộ checklist?')) {
+    state = {};
+    save();
+    render();
+  }
+});
+
+render();
+</script>
+</body>
+</html>
