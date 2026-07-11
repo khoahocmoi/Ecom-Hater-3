@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Buổi 4 — Pricing & PDP | Ecom Hater K3</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #0F1117; --surface: #1A1F2E; --surface2: #222840;
+  --blue: #2563EB; --blue-glow: rgba(37,99,235,0.15);
+  --amber: #F59E0B; --amber-dim: rgba(245,158,11,0.12);
+  --text: #E2E8F0; --muted: #64748B; --rule: rgba(255,255,255,0.07);
+  --green: #10B981; --red: #EF4444; --purple: #8B5CF6;
+}
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+#progress { position: fixed; top: 0; left: 0; height: 2px; background: linear-gradient(90deg, var(--blue), var(--amber)); z-index: 200; transition: width 0.1s; width: 0%; }
+nav { position: fixed; top: 2px; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 40px; height: 52px; background: rgba(15,17,23,0.92); backdrop-filter: blur(20px); border-bottom: 1px solid var(--rule); }
+.nav-left { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--muted); letter-spacing: 0.08em; }
+.nav-left span { color: var(--blue); }
+.nav-dots { display: flex; gap: 6px; align-items: center; }
+.nav-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--rule); cursor: pointer; transition: background 0.2s, transform 0.2s; border: 1px solid var(--muted); }
+.nav-dot.active { background: var(--blue); border-color: var(--blue); transform: scale(1.3); }
+.slide { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 80px 60px 60px; max-width: 1100px; margin: 0 auto; position: relative; }
+.hero-slide { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; padding: 80px 60px 60px; max-width: 1100px; margin: 0 auto; position: relative; overflow: hidden; }
+.hero-slide::before { content: ''; position: absolute; top: -200px; right: -200px; width: 600px; height: 600px; background: radial-gradient(circle, rgba(37,99,235,0.12) 0%, transparent 70%); pointer-events: none; }
+.hero-slide::after { content: ''; position: absolute; bottom: -100px; left: -100px; width: 400px; height: 400px; background: radial-gradient(circle, rgba(245,158,11,0.07) 0%, transparent 70%); pointer-events: none; }
+.hero-tag { font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--blue); background: var(--blue-glow); border: 1px solid rgba(37,99,235,0.3); padding: 6px 14px; border-radius: 2px; display: inline-block; margin-bottom: 32px; }
+.hero-meta { display: flex; gap: 32px; margin-top: 48px; flex-wrap: wrap; }
+.hero-meta-item { display: flex; flex-direction: column; gap: 4px; }
+.hero-meta-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+.hero-meta-value { font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 500; color: var(--text); }
+.eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--blue); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+.eyebrow::before { content: ''; display: inline-block; width: 24px; height: 1px; background: var(--blue); }
+.title-xl { font-family: 'Space Grotesk', sans-serif; font-size: clamp(42px, 6vw, 80px); font-weight: 700; line-height: 1.0; letter-spacing: -0.03em; margin-bottom: 24px; }
+.title-lg { font-family: 'Space Grotesk', sans-serif; font-size: clamp(32px, 4.5vw, 56px); font-weight: 700; line-height: 1.1; letter-spacing: -0.025em; margin-bottom: 20px; }
+.title-md { font-family: 'Space Grotesk', sans-serif; font-size: clamp(20px, 2.5vw, 28px); font-weight: 600; line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 16px; }
+.accent-blue { color: var(--blue); } .accent-amber { color: var(--amber); } .accent-green { color: var(--green); } .accent-red { color: var(--red); } .accent-purple { color: var(--purple); }
+.body-text { font-size: 17px; font-weight: 300; color: rgba(226,232,240,0.75); line-height: 1.75; max-width: 680px; }
+.body-text strong { color: var(--text); font-weight: 500; }
+.card-grid { display: grid; gap: 2px; margin-top: 40px; }
+.card-grid-3 { grid-template-columns: repeat(3, 1fr); }
+.card-grid-2 { grid-template-columns: repeat(2, 1fr); }
+.card { background: var(--surface); border: 1px solid var(--rule); padding: 28px 26px; position: relative; transition: background 0.2s, border-color 0.2s; }
+.card:hover { background: var(--surface2); border-color: rgba(37,99,235,0.2); }
+.card-title { font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 600; margin-bottom: 10px; line-height: 1.3; }
+.card-body { font-size: 13px; color: rgba(226,232,240,0.6); line-height: 1.7; }
+.card-tag { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 8px; border-radius: 2px; margin-bottom: 12px; }
+.tag-green { background: rgba(16,185,129,0.12); color: var(--green); border: 1px solid rgba(16,185,129,0.25); }
+.tag-amber { background: var(--amber-dim); color: var(--amber); border: 1px solid rgba(245,158,11,0.25); }
+.tag-red { background: rgba(239,68,68,0.1); color: var(--red); border: 1px solid rgba(239,68,68,0.25); }
+.tag-blue { background: var(--blue-glow); color: var(--blue); border: 1px solid rgba(37,99,235,0.25); }
+.tag-purple { background: rgba(139,92,246,0.1); color: var(--purple); border: 1px solid rgba(139,92,246,0.25); }
+.insight { background: linear-gradient(135deg, rgba(37,99,235,0.08), rgba(139,92,246,0.05)); border: 1px solid rgba(37,99,235,0.2); border-left: 3px solid var(--blue); padding: 24px 28px; margin-top: 32px; max-width: 720px; }
+.insight-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--blue); margin-bottom: 8px; }
+.insight-text { font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 500; line-height: 1.6; color: var(--text); }
+.warning { background: rgba(245,158,11,0.06); border: 1px solid rgba(245,158,11,0.2); border-left: 3px solid var(--amber); padding: 20px 24px; margin-top: 24px; max-width: 720px; }
+.warning-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--amber); margin-bottom: 8px; }
+.warning-text { font-size: 14px; color: rgba(226,232,240,0.75); line-height: 1.65; }
+.section-sep { border-top: 1px solid var(--rule); margin: 0; }
+.bg-alt { background: rgba(26,31,46,0.4); }
+.section-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 32px; }
+
+/* PRICE COMPARE */
+.price-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-top: 40px; }
+.price-box { background: var(--surface); border: 1px solid var(--rule); padding: 28px 26px; }
+.price-box.bad { border-left: 3px solid var(--red); }
+.price-box.good { border-left: 3px solid var(--green); }
+.price-box-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 12px; }
+.price-box-text { font-size: 14px; color: rgba(226,232,240,0.7); line-height: 1.7; }
+
+/* GPM CALC */
+.gpm-formula { background: var(--surface); border: 1px solid rgba(37,99,235,0.25); padding: 32px 36px; margin-top: 32px; }
+.gpm-row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 600; margin-bottom: 16px; }
+.gpm-row:last-child { margin-bottom: 0; }
+.gpm-val { color: var(--blue); }
+.gpm-op { color: var(--muted); font-weight: 400; }
+.gpm-result { color: var(--green); }
+.gpm-bar-wrap { margin-top: 28px; }
+.gpm-bar { height: 32px; border-radius: 4px; display: flex; overflow: hidden; }
+.gpm-seg { display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; color: #0F1117; }
+.gpm-legend { display: flex; gap: 24px; margin-top: 16px; flex-wrap: wrap; }
+.gpm-legend-item { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--muted); }
+.gpm-legend-dot { width: 10px; height: 10px; border-radius: 2px; }
+
+/* PDP STRUCTURE LIST */
+.pdp-list { display: flex; flex-direction: column; gap: 2px; margin-top: 40px; }
+.pdp-row { display: grid; grid-template-columns: 56px 1fr; gap: 20px; align-items: start; background: var(--surface); border: 1px solid var(--rule); padding: 22px 24px; transition: background 0.15s, border-color 0.15s; }
+.pdp-row:hover { background: var(--surface2); border-color: rgba(37,99,235,0.2); }
+.pdp-num { font-family: 'Space Grotesk', sans-serif; font-size: 24px; font-weight: 700; color: var(--blue); opacity: 0.4; line-height: 1; }
+.pdp-title { font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 600; margin-bottom: 6px; }
+.pdp-req { font-size: 13px; color: rgba(226,232,240,0.6); line-height: 1.65; }
+
+/* AI IMAGE TOOLS */
+.tool-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-top: 40px; }
+.tool-card { background: var(--surface); border: 1px solid var(--rule); padding: 32px 28px; }
+.tool-name { font-family: 'Space Grotesk', sans-serif; font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+.tool-tag { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--blue); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 16px; }
+.tool-desc { font-size: 14px; color: rgba(226,232,240,0.65); line-height: 1.75; margin-bottom: 16px; }
+.tool-use-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px; }
+.tool-use-list { list-style: none; font-size: 13px; color: rgba(226,232,240,0.65); line-height: 1.8; }
+.tool-use-list li { padding-left: 16px; position: relative; }
+.tool-use-list li::before { content: '→'; position: absolute; left: 0; color: var(--blue); }
+
+/* WORKFLOW STEPS */
+.workflow-row { display: grid; grid-template-columns: 40px 1fr; gap: 16px; align-items: start; padding: 16px 0; border-bottom: 1px solid var(--rule); }
+.workflow-row:last-child { border-bottom: none; }
+.workflow-num { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--blue); padding-top: 2px; }
+.workflow-title { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+.workflow-desc { font-size: 13px; color: rgba(226,232,240,0.55); line-height: 1.5; }
+
+@media (max-width: 768px) {
+  nav { padding: 0 20px; } .slide, .hero-slide { padding: 80px 24px 48px; }
+  .card-grid-3, .card-grid-2, .price-compare, .tool-grid { grid-template-columns: 1fr; }
+  .pdp-row { grid-template-columns: 40px 1fr; }
+  .gpm-row { font-size: 16px; }
+}
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+<nav>
+  <div class="nav-left"><span>EH·K3</span> / Buổi 04 — Pricing & PDP</div>
+  <div class="nav-dots" id="navDots"></div>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section id="s1" data-label="Intro">
+<div class="hero-slide">
+  <div class="hero-tag">Ecom Hater K3 · Buổi 04</div>
+  <h1 class="title-xl">Pricing<br><span class="accent-blue">& PDP.</span></h1>
+  <p class="body-text">Giá sai từ đầu — mọi thứ khác làm đúng cũng không cứu được. Hôm nay học cách đặt giá có chủ đích, và build trang sản phẩm đúng cấu trúc.</p>
+  <div class="hero-meta">
+    <div class="hero-meta-item"><span class="hero-meta-label">Chủ đề</span><span class="hero-meta-value">Pricing & Product Page</span></div>
+    <div class="hero-meta-item"><span class="hero-meta-label">Khoá</span><span class="hero-meta-value">Ecom Hater K3</span></div>
+  </div>
+</div>
+</section>
+
+<div class="section-sep"></div>
+
+<!-- ══ PHẦN 1: ĐẶT GIÁ ══ -->
+<section id="s2" data-label="Đặt giá" class="bg-alt">
+<div class="slide">
+  <div class="eyebrow">Phần 01 — Tư duy</div>
+  <h2 class="title-lg">Đặt giá<br><span class="accent-amber">x3 hay x4 lần?</span></h2>
+  <p class="body-text">Câu hỏi sai. Đặt giá không phải nhân hệ số cố định — là đảm bảo dự án <strong>đủ hấp dẫn trước khi bắt tay làm.</strong></p>
+
+  <div class="price-compare">
+    <div class="price-box bad">
+      <div class="price-box-label" style="color:var(--red);">✕ Cách làm sai</div>
+      <div class="price-box-text">Nhìn thị trường bán giá bao nhiêu → lấy giá trung bình hoặc thấp hơn để "dễ ra sale". Kết quả: profit margin mỏng. Sau một thời gian làm mọi thứ đều tốt — ads, content, store — vẫn không có lãi nổi.</div>
+    </div>
+    <div class="price-box good">
+      <div class="price-box-label" style="color:var(--green);">✓ Cách làm đúng</div>
+      <div class="price-box-text">Dự án phải nhìn thấy tiềm năng sinh lời tốt <strong style="color:var(--text);">trước khi</strong> bỏ tiền vào. Giá phải đạt đủ 2 tiêu chí cùng lúc — không phải 1.</div>
+    </div>
+  </div>
+
+  <div class="card-grid card-grid-2" style="margin-top:2px;">
+    <div class="card">
+      <span class="card-tag tag-blue">Tiêu chí 01</span>
+      <div class="card-title">Chi phí thị trường chấp nhận được</div>
+      <div class="card-body">Khách hàng target sẵn sàng trả mức giá đó cho loại sản phẩm này — không vượt quá xa kỳ vọng giá của ngách.</div>
+    </div>
+    <div class="card">
+      <span class="card-tag tag-blue">Tiêu chí 02</span>
+      <div class="card-title">Đạt GPM tối thiểu</div>
+      <div class="card-body">Đủ room để chạy ads, đủ room để có net profit thật — không chỉ hoà vốn sau khi trừ hết chi phí.</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<div class="section-sep"></div>
+
+<!-- ══ PHẦN 2: MARKET RESEARCH ══ -->
+<section id="s3" data-label="Market Research">
+<div class="slide">
+  <div class="eyebrow">Phần 02 — Market Research</div>
+  <h2 class="title-lg">Định giá theo<br><span class="accent-blue">dạng sản phẩm</span></h2>
+  <p class="body-text">Biết base cost. Biết đối thủ lớn nhất đang bán giá nào. Sau đó — cách định giá khác hẳn nhau tuỳ vào dạng sản phẩm.</p>
+
+  <div class="card-grid card-grid-2" style="margin-top:40px;">
+    <div class="card" style="border-left:3px solid var(--blue);">
+      <span class="card-tag tag-blue">Dạng Proven</span>
+      <div class="card-title">Bán sản phẩm y hệt thị trường</div>
+      <div class="card-body" style="margin-bottom:12px;">Khó có lý do charge cao hơn nhiều so với thị trường — khách không thấy khác biệt để trả thêm.</div>
+      <div style="background:var(--surface2); padding:12px 16px; border-radius:2px; font-size:13px; color:var(--amber); font-family:'JetBrains Mono',monospace;">Kịch trần: cao hơn $5–10. Hơn nữa → khó ra sale.</div>
+    </div>
+    <div class="card" style="border-left:3px solid var(--purple);">
+      <span class="card-tag tag-purple">Dạng Innovator</span>
+      <div class="card-title">Có lợi thế cạnh tranh riêng</div>
+      <div class="card-body" style="margin-bottom:12px;">Không có benchmark trực tiếp để khách so sánh — vì sản phẩm khác biệt thật.</div>
+      <div style="background:var(--surface2); padding:12px 16px; border-radius:2px; font-size:13px; color:var(--green); font-family:'JetBrains Mono',monospace;">Có thể charge cao hẳn hoặc thấp hẳn thị trường.</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<div class="section-sep"></div>
+
+<!-- ══ PHẦN 3: GPM ══ -->
+<section id="s4" data-label="GPM" class="bg-alt">
+<div class="slide">
+  <div class="eyebrow">Phần 03 — Công thức</div>
+  <h2 class="title-lg">GPM —<br><span class="accent-green">Gross Profit Margin</span></h2>
+  <p class="body-text">Số quan trọng nhất khi định giá. GPM càng cao → room cho ads càng nhiều → càng dễ sống khi CPM tăng.</p>
+
+  <div class="gpm-formula">
+    <div class="gpm-row">
+      <span>GPM</span><span class="gpm-op">=</span>
+      <span class="gpm-val">Revenue (100%)</span><span class="gpm-op">−</span>
+      <span class="gpm-val">COGS (%)</span>
+    </div>
+    <div style="border-top:1px solid var(--rule); margin:20px 0; padding-top:20px; font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--muted);">
+      Ví dụ: Base cost $10, bán $50 → Profit $40
+    </div>
+    <div class="gpm-row">
+      <span class="gpm-result">GPM = 40/50 = 80%</span>
+    </div>
+  </div>
+
+  <div style="margin-top:40px;">
+    <div class="title-md">Phân rã GPM</div>
+    <div class="gpm-formula" style="border-color:rgba(245,158,11,0.25);">
+      <div class="gpm-row" style="font-size:18px;">
+        <span>GPM</span><span class="gpm-op">=</span>
+        <span style="color:var(--muted);">Fee</span><span class="gpm-op">+</span>
+        <span style="color:var(--amber);">Ads</span><span class="gpm-op">+</span>
+        <span style="color:var(--green);">NPM</span>
+      </div>
+
+      <div class="gpm-bar-wrap">
+        <div class="gpm-bar">
+          <div class="gpm-seg" style="background:#64748B; width:5%;"></div>
+          <div class="gpm-seg" style="background:#F59E0B; width:55%;">Ads 55%</div>
+          <div class="gpm-seg" style="background:#10B981; width:20%;">NPM 20%</div>
+        </div>
+        <div class="gpm-legend">
+          <div class="gpm-legend-item"><span class="gpm-legend-dot" style="background:#64748B;"></span>Fee 5%</div>
+          <div class="gpm-legend-item"><span class="gpm-legend-dot" style="background:#F59E0B;"></span>Ads 55%</div>
+          <div class="gpm-legend-item"><span class="gpm-legend-dot" style="background:#10B981;"></span>Net Profit 20%</div>
+        </div>
+      </div>
+
+      <div style="margin-top:24px; font-size:14px; color:rgba(226,232,240,0.7); line-height:1.8; border-top:1px solid var(--rule); padding-top:20px;">
+        Nếu Ads = 0%, Fee = 5% → Profit = <strong style="color:var(--text);">75%</strong> revenue.<br>
+        Muốn Net Profit Margin = 20% → Ads room = <strong style="color:var(--amber);">55%</strong>.<br>
+        Break-even ROAS = 1 / 75% = <strong style="color:var(--green);">1.33</strong>
+      </div>
+    </div>
+  </div>
+
+  <div class="insight" style="margin-top:32px; max-width:100%;">
+    <div class="insight-label">Khuyến nghị</div>
+    <div class="insight-text">Hướng đến GPM ~65%. Công thức đặt giá: Giá bán = Base cost ÷ 35%.</div>
+  </div>
+</div>
+</section>
+
+<div class="section-sep"></div>
+
+<!-- ══ PHẦN 4: PDP STRUCTURE ══ -->
+<section id="s5" data-label="PDP Structure">
+<div class="slide">
+  <div class="eyebrow">Phần 04 — Cấu trúc</div>
+  <h2 class="title-lg">12 phần<br><span class="accent-blue">của 1 trang PDP</span></h2>
+  <p class="body-text">Mỗi phần có vai trò riêng trong việc dẫn khách từ "tò mò" đến "checkout". Thiếu phần nào, funnel rò rỉ ở đó.</p>
+
+  <div class="pdp-list">
+    <div class="pdp-row">
+      <div class="pdp-num">01</div>
+      <div><div class="pdp-title">Hero / Above the fold</div><div class="pdp-req">Hình ảnh hero (lifestyle + product shot), headline nêu benefit chính, giá kèm giá gốc so sánh, CTA nổi bật, trust badge (free ship, guarantee) ngay trong tầm nhìn đầu tiên.</div></div>
+    </div>
+    <div class="pdp-row">
+      <div class="pdp-num">02</div>
+      <div><div class="pdp-title">Social Proof ngay đầu</div><div class="pdp-req">Review stars + số lượng review, logo "as seen on" nếu có, số lượng đã bán. Đặt sớm để tăng trust trước khi khách đọc tiếp xuống.</div></div>
+    </div>
+    <div class="pdp-row">
+      <div class="pdp-num">03</div>
+      <div><div class="pdp-title">Problem / Agitate</div><div class="pdp-req">Mô tả pain point khách đang gặp — để họ thấy "đúng là mình" trước khi đưa ra solution.</div></div>
+    </div>
+    <div class="pdp-row">
+      <div class="pdp-num">04</div>
+      <div><div class="pdp-title">Solution / Mechanism</div><div class="pdp-req">Giải thích sản phẩm hoạt động thế nào, tại sao khác biệt. Đây là chỗ dùng Mechanism đã học — lý do khoa học/logic phía sau sản phẩm.</div></div>
+    </div>
+    <div class="pdp-row">
+      <div class="pdp-num">05</div>
+      <div><div class="pdp-title">Benefits theo từng tính năng</div><div class="pdp-req">Mỗi tính năng → benefit cụ thể, dùng icon + ảnh minh họa. Không liệt kê khô kiểu spec sheet.</div></div>
+    </div>
+    <div class="pdp-row">
+      <div class="pdp-num">06</div>
+      <div><div class="pdp-title">Before/After hoặc Demo</div><div class="pdp-req">Ảnh/GIF minh chứng hiệu quả. Tuân thủ nguyên tắc copy đã học — không composite ảnh giả, không claim quá đà.</div></div>
+    </div>
+    <div class="pdp-row">
+      <div class="pdp-num">07</div>
+      <div><div class="pdp-title">Comparison Table</div><div class="pdp-req">So sánh sản phẩm mình vs cách cũ / đối thủ. Làm rõ trực quan vì sao chọn mình thay vì lựa chọn khác.</div></div>
+    </div>
+    <div class="pdp-row">
+      <div class="pdp-num">08</div>
+      <div><div class="pdp-title">Testimonials chi tiết</div><div class="pdp-req">Review có tên, ảnh, câu chuyện ngắn — không chỉ số sao đánh giá. Chi tiết tạo độ tin cao hơn số liệu trừu tượng.</div></div>
+    </div>
+    <div class="pdp-row">
+      <div class="pdp-num">09</div>
+      <div><div class="pdp-title">Variant / Bundle Selection</div><div class="pdp-req">Chọn size/màu/bundle. Đây là chỗ tăng AOV qua bundle pricing — "mua 2 tặng 1", "mua 3 giảm 20%".</div></div>
+    </div>
+    <div class="pdp-row">
+      <div class="pdp-num">10</div>
+      <div><div class="pdp-title">Guarantee / Risk Reversal</div><div class="pdp-req">Money-back guarantee, free return. Xóa rào cản tâm lý cuối cùng trước khi khách quyết định mua.</div></div>
+    </div>
+    <div class="pdp-row">
+      <div class="pdp-num">11</div>
+      <div><div class="pdp-title">FAQ</div><div class="pdp-req">Trả lời objection phổ biến nhất trước khi khách rời trang vì còn thắc mắc chưa được giải đáp.</div></div>
+    </div>
+    <div class="pdp-row">
+      <div class="pdp-num">12</div>
+      <div><div class="pdp-title">Sticky CTA</div><div class="pdp-req">Nút mua cố định khi scroll xuống — đặc biệt quan trọng trên mobile, nơi đa số traffic đến từ.</div></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<div class="section-sep"></div>
+
+<!-- ══ PHẦN 5: AI IMAGE ══ -->
+<section id="s6" data-label="AI Image" class="bg-alt">
+<div class="slide">
+  <div class="eyebrow">Phần 05 — Creative</div>
+  <h2 class="title-lg">Làm ảnh sản phẩm<br><span class="accent-purple">bằng AI chuyên nghiệp</span></h2>
+  <p class="body-text">Không cần studio, không cần product mẫu thật trong tay. Tốc độ nhanh hơn, chi phí thấp hơn 10x so với thuê photographer truyền thống.</p>
+
+  <div class="tool-grid">
+    <div class="tool-card">
+      <div class="tool-name" style="color:var(--blue);">Higgsfield</div>
+      <div class="tool-tag">Image & Video Generation</div>
+      <div class="tool-desc">Tạo ảnh sản phẩm photoreal, lifestyle shot, character/avatar nhất quán cho brand. Generate nhiều góc chụp từ 1 ảnh gốc.</div>
+      <div class="tool-use-label">Dùng cho</div>
+      <ul class="tool-use-list">
+        <li>Lifestyle shot — đặt sản phẩm vào bối cảnh thật</li>
+        <li>Product shot nhiều góc từ 1 ảnh gốc</li>
+        <li>Background sạch cho PDP, background đời thực cho ads</li>
+        <li>Video ngắn cho creative động (GIF-style)</li>
+      </ul>
+    </div>
+    <div class="tool-card">
+      <div class="tool-name" style="color:var(--purple);">Topview</div>
+      <div class="tool-tag">UGC & Video Ad Creation</div>
+      <div class="tool-desc">Chuyên về tạo video UGC-style, ảnh động dạng demo sản phẩm — phù hợp cho creative chạy ads và short-form content.</div>
+      <div class="tool-use-label">Dùng cho</div>
+      <ul class="tool-use-list">
+        <li>Demo sản phẩm dạng video ngắn cho PDP</li>
+        <li>UGC-style content cho phần Before/After</li>
+        <li>GIF động minh hoạ cách dùng sản phẩm</li>
+      </ul>
+    </div>
+  </div>
+
+  <div style="margin-top:40px;">
+    <div class="title-md">Quy trình cơ bản</div>
+    <div style="background:var(--surface); border:1px solid var(--rule); padding:8px 28px; margin-top:20px;">
+      <div class="workflow-row">
+        <div class="workflow-num">01</div>
+        <div><div class="workflow-title">Chuẩn bị ảnh reference</div><div class="workflow-desc">Ảnh sản phẩm thật — chụp tay hoặc lấy từ supplier — làm input gốc cho AI.</div></div>
+      </div>
+      <div class="workflow-row">
+        <div class="workflow-num">02</div>
+        <div><div class="workflow-title">Generate lifestyle shot</div><div class="workflow-desc">Đặt sản phẩm vào bối cảnh thật phù hợp ngách — bàn ăn, phòng tắm, trên tay người dùng.</div></div>
+      </div>
+      <div class="workflow-row">
+        <div class="workflow-num">03</div>
+        <div><div class="workflow-title">Tạo nhiều góc chụp</div><div class="workflow-desc">Từ 1 ảnh gốc, generate thêm các góc khác — đủ bộ ảnh cho cả PDP gallery.</div></div>
+      </div>
+      <div class="workflow-row">
+        <div class="workflow-num">04</div>
+        <div><div class="workflow-title">Tách background cho từng mục đích</div><div class="workflow-desc">Background sạch (trắng/đơn sắc) cho PDP chính, background lifestyle cho ads và social.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="warning" style="margin-top:32px; max-width:100%;">
+    <div class="warning-label">Nguyên tắc để ảnh AI không bị "giả"</div>
+    <div class="warning-text">Giữ tỷ lệ sản phẩm đúng thực tế — không để AI làm sản phẩm to/nhỏ bất thường. Ánh sáng phải tự nhiên, tránh chi tiết bị méo như text trên packaging hoặc logo. Luôn review kỹ trước khi đưa lên PDP — khách hàng tinh ý hơn bạn nghĩ.</div>
+  </div>
+</div>
+</section>
+
+<div class="section-sep"></div>
+
+<!-- ══ END ══ -->
+<section id="s7" data-label="Kết thúc">
+<div class="hero-slide" style="text-align:center; align-items:center;">
+  <div class="eyebrow" style="justify-content:center;">Buổi 04 — Kết thúc</div>
+  <h2 class="title-lg">Hẹn gặp lại<br><span class="accent-blue">buổi sau</span></h2>
+  <div style="margin-top:40px; font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--muted); letter-spacing:0.08em;">Ecom Hater K3 · Quang Vinh Ecom</div>
+</div>
+</section>
+
+<script>
+const progressBar = document.getElementById('progress');
+window.addEventListener('scroll', () => {
+  const total = document.body.scrollHeight - window.innerHeight;
+  progressBar.style.width = (window.scrollY / total * 100) + '%';
+});
+const sections = document.querySelectorAll('section[id]');
+const dotsContainer = document.getElementById('navDots');
+sections.forEach((sec) => {
+  const dot = document.createElement('div');
+  dot.className = 'nav-dot';
+  dot.title = sec.dataset.label || '';
+  dot.addEventListener('click', () => sec.scrollIntoView({ behavior: 'smooth' }));
+  dotsContainer.appendChild(dot);
+});
+const dots = document.querySelectorAll('.nav-dot');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const idx = Array.from(sections).indexOf(entry.target);
+      dots.forEach(d => d.classList.remove('active'));
+      if (dots[idx]) dots[idx].classList.add('active');
+    }
+  });
+}, { threshold: 0.4 });
+sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
