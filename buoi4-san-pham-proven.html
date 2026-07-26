@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Buổi 3 — Tìm Sản Phẩm Win: Proven | Ecom Hater K3</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg:        #0F1117;
+  --surface:   #1A1F2E;
+  --surface2:  #222840;
+  --blue:      #2563EB;
+  --blue-glow: rgba(37,99,235,0.15);
+  --amber:     #F59E0B;
+  --amber-dim: rgba(245,158,11,0.12);
+  --text:      #E2E8F0;
+  --muted:     #64748B;
+  --rule:      rgba(255,255,255,0.07);
+  --green:     #10B981;
+  --red:       #EF4444;
+  --purple:    #8B5CF6;
+}
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+
+#progress { position: fixed; top: 0; left: 0; height: 2px; background: linear-gradient(90deg, var(--blue), var(--amber)); z-index: 200; transition: width 0.1s; width: 0%; }
+
+nav { position: fixed; top: 2px; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 40px; height: 52px; background: rgba(15,17,23,0.92); backdrop-filter: blur(20px); border-bottom: 1px solid var(--rule); }
+.nav-left { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--muted); letter-spacing: 0.08em; }
+.nav-left span { color: var(--blue); }
+.nav-dots { display: flex; gap: 6px; align-items: center; }
+.nav-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--rule); cursor: pointer; transition: background 0.2s, transform 0.2s; border: 1px solid var(--muted); }
+.nav-dot.active { background: var(--blue); border-color: var(--blue); transform: scale(1.3); }
+
+.slide { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 80px 60px 60px; max-width: 1100px; margin: 0 auto; position: relative; }
+
+.hero-slide { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; padding: 80px 60px 60px; max-width: 1100px; margin: 0 auto; position: relative; overflow: hidden; }
+.hero-slide::before { content: ''; position: absolute; top: -200px; right: -200px; width: 600px; height: 600px; background: radial-gradient(circle, rgba(37,99,235,0.12) 0%, transparent 70%); pointer-events: none; }
+.hero-slide::after { content: ''; position: absolute; bottom: -100px; left: -100px; width: 400px; height: 400px; background: radial-gradient(circle, rgba(245,158,11,0.07) 0%, transparent 70%); pointer-events: none; }
+
+.hero-tag { font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--blue); background: var(--blue-glow); border: 1px solid rgba(37,99,235,0.3); padding: 6px 14px; border-radius: 2px; display: inline-block; margin-bottom: 32px; }
+.hero-meta { display: flex; gap: 32px; margin-top: 48px; flex-wrap: wrap; }
+.hero-meta-item { display: flex; flex-direction: column; gap: 4px; }
+.hero-meta-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+.hero-meta-value { font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 500; color: var(--text); }
+
+.eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--blue); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+.eyebrow::before { content: ''; display: inline-block; width: 24px; height: 1px; background: var(--blue); }
+
+.title-xl { font-family: 'Space Grotesk', sans-serif; font-size: clamp(42px, 6vw, 80px); font-weight: 700; line-height: 1.0; letter-spacing: -0.03em; margin-bottom: 24px; }
+.title-lg { font-family: 'Space Grotesk', sans-serif; font-size: clamp(32px, 4.5vw, 56px); font-weight: 700; line-height: 1.1; letter-spacing: -0.025em; margin-bottom: 20px; }
+.title-md { font-family: 'Space Grotesk', sans-serif; font-size: clamp(20px, 2.5vw, 28px); font-weight: 600; line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 16px; }
+
+.accent-blue { color: var(--blue); }
+.accent-amber { color: var(--amber); }
+.accent-green { color: var(--green); }
+.accent-red { color: var(--red); }
+.accent-purple { color: var(--purple); }
+
+.body-text { font-size: 17px; font-weight: 300; color: rgba(226,232,240,0.75); line-height: 1.75; max-width: 680px; }
+.body-text strong { color: var(--text); font-weight: 500; }
+
+.card-grid { display: grid; gap: 2px; margin-top: 40px; }
+.card-grid-3 { grid-template-columns: repeat(3, 1fr); }
+.card-grid-2 { grid-template-columns: repeat(2, 1fr); }
+.card { background: var(--surface); border: 1px solid var(--rule); padding: 32px 28px; position: relative; transition: background 0.2s, border-color 0.2s; }
+.card:hover { background: var(--surface2); border-color: rgba(37,99,235,0.2); }
+.card-num { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--muted); letter-spacing: 0.1em; margin-bottom: 16px; }
+.card-icon { font-size: 28px; margin-bottom: 16px; display: block; }
+.card-title { font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 600; margin-bottom: 10px; line-height: 1.3; }
+.card-body { font-size: 13px; color: rgba(226,232,240,0.6); line-height: 1.7; }
+
+.card-tag { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 8px; border-radius: 2px; margin-bottom: 12px; }
+.tag-green { background: rgba(16,185,129,0.12); color: var(--green); border: 1px solid rgba(16,185,129,0.25); }
+.tag-amber { background: var(--amber-dim); color: var(--amber); border: 1px solid rgba(245,158,11,0.25); }
+.tag-red { background: rgba(239,68,68,0.1); color: var(--red); border: 1px solid rgba(239,68,68,0.25); }
+.tag-blue { background: var(--blue-glow); color: var(--blue); border: 1px solid rgba(37,99,235,0.25); }
+.tag-purple { background: rgba(139,92,246,0.1); color: var(--purple); border: 1px solid rgba(139,92,246,0.25); }
+
+.insight { background: linear-gradient(135deg, rgba(37,99,235,0.08), rgba(139,92,246,0.05)); border: 1px solid rgba(37,99,235,0.2); border-left: 3px solid var(--blue); padding: 24px 28px; margin-top: 32px; max-width: 720px; }
+.insight-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--blue); margin-bottom: 8px; }
+.insight-text { font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 500; line-height: 1.6; color: var(--text); }
+
+.warning { background: rgba(245,158,11,0.06); border: 1px solid rgba(245,158,11,0.2); border-left: 3px solid var(--amber); padding: 20px 24px; margin-top: 24px; max-width: 720px; }
+.warning-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--amber); margin-bottom: 8px; }
+.warning-text { font-size: 14px; color: rgba(226,232,240,0.75); line-height: 1.65; }
+
+.section-sep { border-top: 1px solid var(--rule); margin: 0; }
+.bg-alt { background: rgba(26,31,46,0.4); }
+.section-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 32px; }
+
+/* CPP BATTLE */
+.battle-grid { display: grid; grid-template-columns: 1fr auto 1fr; gap: 0; margin-top: 40px; align-items: start; }
+.battle-vs { display: flex; align-items: center; justify-content: center; font-family: 'Space Grotesk', sans-serif; font-size: 24px; font-weight: 700; color: var(--muted); padding: 0 24px; margin-top: 48px; }
+.battle-card { background: var(--surface); border: 1px solid var(--rule); padding: 32px 28px; }
+.battle-card.winner { border-color: rgba(16,185,129,0.4); background: rgba(16,185,129,0.04); }
+.battle-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 16px; }
+.battle-cpp { font-family: 'Space Grotesk', sans-serif; font-size: 40px; font-weight: 700; line-height: 1; margin-bottom: 8px; }
+.battle-roas { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--muted); margin-bottom: 20px; }
+.battle-math { font-size: 13px; color: rgba(226,232,240,0.65); line-height: 1.8; border-top: 1px solid var(--rule); padding-top: 16px; margin-top: 4px; }
+.battle-math strong { color: var(--text); }
+.battle-result { margin-top: 16px; font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 600; }
+
+/* NICHE GRID */
+.niche-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 2px; margin-top: 40px; }
+.niche-item { background: var(--surface); border: 1px solid var(--rule); padding: 20px 20px; transition: background 0.15s, border-color 0.15s; cursor: default; }
+.niche-item:hover { background: var(--surface2); border-color: rgba(37,99,235,0.2); }
+.niche-icon { font-size: 22px; margin-bottom: 10px; }
+.niche-name { font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 600; margin-bottom: 6px; }
+.niche-subs { font-size: 11px; color: var(--muted); line-height: 1.6; }
+
+/* AVOID LIST */
+.avoid-list { display: flex; flex-direction: column; gap: 2px; margin-top: 40px; }
+.avoid-row { display: grid; grid-template-columns: 40px 1fr; gap: 16px; align-items: start; background: var(--surface); border: 1px solid var(--rule); padding: 20px 24px; border-left: 3px solid var(--red); transition: background 0.15s; }
+.avoid-row:hover { background: var(--surface2); }
+.avoid-x { font-size: 16px; color: var(--red); font-weight: 700; padding-top: 2px; }
+.avoid-title { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+.avoid-desc { font-size: 13px; color: rgba(226,232,240,0.55); line-height: 1.5; }
+
+/* 3 TYPES */
+.type-row { display: grid; grid-template-columns: 80px 1fr; gap: 24px; align-items: start; background: var(--surface); border: 1px solid var(--rule); padding: 28px 28px; margin-bottom: 2px; transition: background 0.15s; }
+.type-row:hover { background: var(--surface2); }
+.type-num { font-family: 'Space Grotesk', sans-serif; font-size: 36px; font-weight: 700; color: rgba(37,99,235,0.25); line-height: 1; }
+.type-active .type-num { color: var(--blue); }
+.type-content {}
+.type-name { font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 700; margin-bottom: 6px; }
+.type-desc { font-size: 14px; color: rgba(226,232,240,0.6); line-height: 1.65; }
+.type-active { border-color: rgba(37,99,235,0.35); background: rgba(37,99,235,0.04); }
+
+@media (max-width: 768px) {
+  nav { padding: 0 20px; }
+  .slide, .hero-slide { padding: 80px 24px 48px; }
+  .card-grid-3 { grid-template-columns: 1fr; }
+  .card-grid-2 { grid-template-columns: 1fr; }
+  .battle-grid { grid-template-columns: 1fr; }
+  .battle-vs { margin: 16px 0; padding: 0; }
+  .niche-grid { grid-template-columns: repeat(2, 1fr); }
+  .type-row { grid-template-columns: 48px 1fr; gap: 16px; }
+}
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+<nav>
+  <div class="nav-left"><span>EH·K3</span> / Buổi 03 — Sản Phẩm Proven</div>
+  <div class="nav-dots" id="navDots"></div>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section id="s1" data-label="Intro">
+<div class="hero-slide">
+  <div class="hero-tag">Ecom Hater K3 · Buổi 03</div>
+  <h1 class="title-xl">
+    Tìm sản phẩm<br>
+    <span class="accent-blue">win.</span>
+  </h1>
+  <div class="hero-meta">
+    <div class="hero-meta-item">
+      <span class="hero-meta-label">Chủ đề</span>
+      <span class="hero-meta-value">Sản phẩm Proven</span>
+    </div>
+    <div class="hero-meta-item">
+      <span class="hero-meta-label">Khoá</span>
+      <span class="hero-meta-value">Ecom Hater K3</span>
+    </div>
+  </div>
+</div>
+</section>
+
+<div class="section-sep"></div>
+
+<!-- ══ PHẦN 1: DISCLAIMER ══ -->
+<section id="s2" data-label="Disclaimer" class="bg-alt">
+<div class="slide">
+  <div class="eyebrow">Phần 01 — Disclaimer</div>
+  <h2 class="title-lg">Sản phẩm<br><span class="accent-amber">= Profit</span></h2>
+
+  <div class="card-grid card-grid-2" style="margin-top:48px;">
+    <!-- Lose -->
+    <div class="card" style="border-left: 3px solid var(--red);">
+      <span class="card-tag tag-red">Sản phẩm Lose</span>
+      <div style="display:flex; flex-direction:column; gap:12px; margin-top:8px;">
+        <div style="display:flex; gap:12px; align-items:start;">
+          <span style="color:var(--red); font-weight:700; flex-shrink:0; margin-top:1px;">✕</span>
+          <div>
+            <div style="font-size:14px; font-weight:600; margin-bottom:3px;">Bán thứ không ai quan tâm</div>
+            <div style="font-size:12px; color:var(--muted); line-height:1.5;">Không có demand, không có traffic tự nhiên, ads không ai click.</div>
+          </div>
+        </div>
+        <div style="display:flex; gap:12px; align-items:start;">
+          <span style="color:var(--red); font-weight:700; flex-shrink:0; margin-top:1px;">✕</span>
+          <div>
+            <div style="font-size:14px; font-weight:600; margin-bottom:3px;">Bán thứ người ta quan tâm — nhưng đầy trên Walmart, Amazon</div>
+            <div style="font-size:12px; color:var(--muted); line-height:1.5;">Bão hoà. Brand awareness đã có. Không thể cạnh tranh về giá hay trust.</div>
+          </div>
+        </div>
+        <div style="display:flex; gap:12px; align-items:start;">
+          <span style="color:var(--red); font-weight:700; flex-shrink:0; margin-top:1px;">✕</span>
+          <div>
+            <div style="font-size:14px; font-weight:600; margin-bottom:3px;">Setup xong, spend hết vốn — không có lợi nhuận</div>
+            <div style="font-size:12px; color:var(--muted); line-height:1.5;">Đây là kết quả phổ biến nhất. Không phải vì bạn kém — mà vì chọn sai sản phẩm từ đầu.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Win -->
+    <div class="card" style="border-left: 3px solid var(--green);">
+      <span class="card-tag tag-green">Sản phẩm Win</span>
+      <div style="font-size:14px; color:rgba(226,232,240,0.7); line-height:1.8; margin-top:8px;">
+        <p style="margin-bottom:12px;">Nhiều người nghĩ win = ROAS cao. Tiêu $100 ra $300, $400. Cũng đúng — <strong style="color:var(--text)">nhưng tìm được sản phẩm như thế cực khó.</strong></p>
+        <p style="margin-bottom:12px;">Nếu dễ, bạn đã không cần ngồi đây. Hoặc nếu quay về 2017, 2018, 2019 — lúc đó có thể dễ dàng tìm ra ROAS 3, 4, 5.</p>
+        <p>Đến 2026, khi xây dựng brand, mục tiêu không phải ROAS cao. Mục tiêu là <strong style="color:var(--text)">tối ưu số tiền đem về trên mỗi click — cao nhất trong một time range 3–7 ngày.</strong></p>
+      </div>
+      <div class="insight" style="margin-top:20px; max-width:100%;">
+        <div class="insight-label">Định nghĩa đúng</div>
+        <div class="insight-text">Sản phẩm win = sản phẩm đem về lợi nhuận sau tất cả nỗ lực bỏ vào.</div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<div class="section-sep"></div>
+
+<!-- ══ PHẦN 2: CPP BATTLE ══ -->
+<section id="s3" data-label="CPP Game">
+<div class="slide">
+  <div class="eyebrow">Phần 02 — Trò chơi ecom 2026</div>
+  <h2 class="title-lg">Ai chịu được<br><span class="accent-blue">CPP cao nhất</span> — thắng</h2>
+  <p class="body-text">Ads luôn tăng giá. Thay vì cố giữ CPP thật thấp, người thắng là người <strong>build system để kéo thêm revenue</strong> sau khi khách đã mua.</p>
+
+  <!-- Example setup -->
+  <div style="background:var(--surface); border:1px solid var(--rule); padding:20px 24px; margin-top:40px; max-width:600px;">
+    <div style="font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--muted); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:12px;">Ví dụ — cùng bán ốp điện thoại</div>
+    <div style="font-size:14px; color:rgba(226,232,240,0.7); line-height:1.8;">
+      Base cost + giá bán: <strong style="color:var(--text)">ngang nhau $10 → $50</strong><br>
+      Facebook ads content: <strong style="color:var(--text)">như nhau</strong><br>
+      Điểm khác nhau: <strong style="color:var(--amber)">KPI CPP mỗi người tự đặt</strong>
+    </div>
+  </div>
+
+  <div class="battle-grid" style="margin-top:32px;">
+    <!-- Người 1 -->
+    <div class="battle-card">
+      <div class="battle-label" style="color:var(--muted);">Người 1 — Tư duy cũ</div>
+      <div class="battle-cpp" style="color:var(--muted);">CPP $20</div>
+      <div class="battle-roas">ROAS 2.5x</div>
+      <div class="battle-math">
+        Tiêu <strong>$20</strong> → về <strong>$50</strong><br>
+        Lời: <strong>$20</strong> sau COGS<br><br>
+        <span style="color:var(--red);">Khi CPP tăng lên $30, $40 → dừng campaign, bỏ sản phẩm.</span>
+      </div>
+      <div class="battle-result" style="color:var(--muted);">Không có hệ thống sau bán</div>
+    </div>
+
+    <div class="battle-vs">VS</div>
+
+    <!-- Người 2 -->
+    <div class="battle-card winner">
+      <div class="battle-label" style="color:var(--green);">Người 2 — Tư duy đúng</div>
+      <div class="battle-cpp" style="color:var(--green);">CPP $40</div>
+      <div class="battle-roas" style="color:rgba(226,232,240,0.5);">ROAS 1.25x — nhìn có vẻ tệ hơn</div>
+      <div class="battle-math">
+        Tiêu <strong>$40</strong> → về <strong>$50</strong> từ ads<br>
+        + <strong style="color:var(--green);">$30 rev thêm</strong> từ upsell/email<br>
+        Tổng: tiêu $40 → về <strong style="color:var(--green);">$80</strong><br><br>
+        <span style="color:var(--green);">Lời $20 — bằng nhau. Nhưng có thể scale mạnh hơn vì CPP threshold cao hơn.</span>
+      </div>
+      <div class="battle-result" style="color:var(--green);">Post-purchase upsell + email flow</div>
+    </div>
+  </div>
+
+  <div class="warning" style="margin-top:32px; max-width:100%;">
+    <div class="warning-label">Takeaway quan trọng</div>
+    <div class="warning-text">ROAS 1.2, 1.5 chưa chắc là sản phẩm tệ. Đôi khi đó lại là sản phẩm ngon — vì đa số ae ngoài kia test thấy ROAS thấp là bỏ luôn. Mình đem về, build system lên — thành ngon.</div>
+  </div>
+</div>
+</section>
+
+<div class="section-sep"></div>
+
+<!-- ══ PHẦN 3: 3 DẠNG SP ══ -->
+<section id="s4" data-label="3 Dạng SP" class="bg-alt">
+<div class="slide">
+  <div class="eyebrow">Phần 03 — Lộ trình</div>
+  <h2 class="title-lg">3 dạng sản phẩm<br><span class="accent-blue">có thể đánh</span></h2>
+  <p class="body-text">Hôm nay tập trung vào dạng 1.</p>
+
+  <div style="margin-top:40px;">
+    <div class="type-row type-active">
+      <div class="type-num">01</div>
+      <div class="type-content">
+        <div style="display:flex; align-items:center; gap:12px; margin-bottom:6px;">
+          <div class="type-name">Proven</div>
+          <span class="card-tag tag-blue" style="margin-bottom:0;">Hôm nay</span>
+        </div>
+        <div class="type-desc" style="margin-bottom:16px;">Sản phẩm đang bán được tại thị trường US. Có <strong style="color:var(--text)">solution aware</strong> nhưng chưa có <strong style="color:var(--text)">brand aware</strong> — chưa bão hoà, chưa có brand top of mind. Cơ hội vào cạnh tranh còn lớn.</div>
+        <div style="background:var(--surface2); border:1px solid var(--rule); padding:16px 20px; border-radius:2px;">
+          <div style="font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--muted); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:12px;">Brand aware là gì? — Ví dụ thực tế</div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+            <div style="font-size:13px; color:rgba(226,232,240,0.65); line-height:1.6;"><span style="color:var(--amber);">Điện thoại</span> → Iphone</div>
+            <div style="font-size:13px; color:rgba(226,232,240,0.65); line-height:1.6;"><span style="color:var(--amber);">Mua hàng online</span> → Shopee</div>
+            <div style="font-size:13px; color:rgba(226,232,240,0.65); line-height:1.6;"><span style="color:var(--amber);">Gọi xe ôm</span> → Grab</div>
+            <div style="font-size:13px; color:rgba(226,232,240,0.65); line-height:1.6;"><span style="color:var(--amber);">Đôi giày</span> → Adidas</div>
+          </div>
+          <div style="margin-top:12px; font-size:12px; color:var(--muted); border-top:1px solid var(--rule); padding-top:12px;">Proven = ngách chưa có brand top of mind như thế. Khách biết solution cần nhưng chưa "lock" vào brand nào → đó là cơ hội.</div>
+        </div>
+      </div>
+    </div>
+    <div class="type-row" style="opacity:0.35; pointer-events:none;">
+      <div class="type-num">02</div>
+      <div class="type-content">
+        <div class="type-name" style="color:rgba(226,232,240,0.5);">Innovator</div>
+        <div class="type-desc" style="color:rgba(226,232,240,0.35);">— — —</div>
+      </div>
+    </div>
+    <div class="type-row" style="opacity:0.35; pointer-events:none;">
+      <div class="type-num">03</div>
+      <div class="type-content">
+        <div class="type-name" style="color:rgba(226,232,240,0.5);">Vùng xám</div>
+        <div class="type-desc" style="color:rgba(226,232,240,0.35);">— — —</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="insight" style="margin-top:32px;">
+    <div class="insight-label">Định nghĩa Proven</div>
+    <div class="insight-text">Có 1 hoặc nhiều bên đang bán tốt trong 1 ngách — nhưng chưa có brand aware. Khách hàng biết solution (sản phẩm loại này) nhưng chưa bị "lock" vào 1 brand cụ thể. Đó là khoảng trống để mình vào.</div>
+  </div>
+</div>
+</section>
+
+<div class="section-sep"></div>
+
+<!-- ══ PHẦN 4: NICHE ══ -->
+<section id="s5" data-label="Niche nên bán">
+<div class="slide">
+  <div class="eyebrow">Phần 04 — Niche</div>
+  <h2 class="title-lg">Những niche<br><span class="accent-amber">nên bán với Facebook Ads</span></h2>
+  <p class="body-text">Facebook Ads hoạt động tốt nhất với các ngách có <strong>pain point rõ ràng</strong> và <strong>desire mạnh</strong>. Đây là những ngách đang perform tốt nhất.</p>
+
+  <div class="niche-grid">
+    <div class="niche-item">
+      <div class="niche-icon">❤️‍🩹</div>
+      <div class="niche-name">Health</div>
+      <div class="niche-subs">Mất ngủ · Đau nhức · Sức khoẻ thể chất · Vóc dáng · Sức khoẻ tinh thần</div>
+    </div>
+    <div class="niche-item">
+      <div class="niche-icon">✨</div>
+      <div class="niche-name">Beauty</div>
+      <div class="niche-subs">Trắng răng · Triệt lông · Skin care · Mờ nếp nhăn · Rụng tóc · Giảm cân</div>
+    </div>
+    <div class="niche-item">
+      <div class="niche-icon">🚗</div>
+      <div class="niche-name">Car</div>
+      <div class="niche-subs">Sạch xe · Đẹp xe · Tiện ích xe</div>
+    </div>
+    <div class="niche-item">
+      <div class="niche-icon">✈️</div>
+      <div class="niche-name">Traveller</div>
+      <div class="niche-subs">Đồ dùng du lịch · Tiện ích hành lý · Comfort khi di chuyển</div>
+    </div>
+    <div class="niche-item">
+      <div class="niche-icon">👶</div>
+      <div class="niche-name">Baby</div>
+      <div class="niche-subs">Safe · Develop skills · Learning · Parenting tools</div>
+    </div>
+    <div class="niche-item">
+      <div class="niche-icon">🐾</div>
+      <div class="niche-name">Pet Health</div>
+      <div class="niche-subs">Sức khoẻ thú cưng · Grooming · Comfort · Supplement</div>
+    </div>
+  </div>
+
+  <div class="insight" style="margin-top:32px; max-width:100%;">
+    <div class="insight-label">Tại sao những ngách này?</div>
+    <div class="insight-text">Pain point rõ → khách hàng đang tìm solution → dễ viết hook, dễ làm advertorial, dễ convert. Desire mạnh → sẵn sàng chi tiền → AOV cao hơn.</div>
+  </div>
+</div>
+</section>
+
+<div class="section-sep"></div>
+
+<!-- ══ PHẦN 5: TRÁNH ══ -->
+<section id="s6" data-label="Nên tránh" class="bg-alt">
+<div class="slide">
+  <div class="eyebrow">Phần 05 — Bộ lọc</div>
+  <h2 class="title-lg">Dạng sản phẩm<br><span class="accent-red">nên tránh</span></h2>
+  <p class="body-text">Tránh những dạng này không phải vì không thể bán — mà vì <strong>rủi ro cao, margin thấp, hoặc sẽ gây đau đầu không đáng</strong> ở giai đoạn đầu.</p>
+
+  <div class="avoid-list">
+    <div class="avoid-row">
+      <div class="avoid-x">✕</div>
+      <div>
+        <div class="avoid-title">Dễ vỡ hoặc quá nặng (>5kg)</div>
+        <div class="avoid-desc">Shipping cost cao, tỷ lệ damage khi vận chuyển cao, dispute và refund nhiều hơn. Margin bị ăn mòn bởi logistics.</div>
+      </div>
+    </div>
+    <div class="avoid-row">
+      <div class="avoid-x">✕</div>
+      <div>
+        <div class="avoid-title">Thuốc, đồ ăn, đồ uống</div>
+        <div class="avoid-desc">Regulated heavily — FDA compliance, health claims restrictions, import issues. Facebook Ads cũng hạn chế mạnh với các ngành này.</div>
+      </div>
+    </div>
+    <div class="avoid-row">
+      <div class="avoid-x">✕</div>
+      <div>
+        <div class="avoid-title">Tính năng ảo</div>
+        <div class="avoid-desc">Sản phẩm không làm được những gì quảng cáo → dispute cao, chargeback nhiều, tài khoản Stripe/PayPal dễ bị khoá.</div>
+      </div>
+    </div>
+    <div class="avoid-row">
+      <div class="avoid-x">✕</div>
+      <div>
+        <div class="avoid-title">Trademark & vi phạm VPCS của Shopify</div>
+        <div class="avoid-desc">Store bị takedown bất cứ lúc nào. Mọi công sức build funnel, creative, data đổ hết. Trademark check là bước đầu tiên — không negotiate.</div>
+      </div>
+    </div>
+    <div class="avoid-row">
+      <div class="avoid-x">✕</div>
+      <div>
+        <div class="avoid-title">Giá khởi điểm thấp — khó đẩy AOV >$80</div>
+        <div class="avoid-desc">Ads ngày càng đắt. Nếu AOV thấp, CPP không có room để tối ưu, không có room để upsell. Business model không bền khi scale.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="warning" style="margin-top:32px; max-width:100%;">
+    <div class="warning-label">Rule of thumb</div>
+    <div class="warning-text">Trước khi làm bất cứ thứ gì — trademark check trước. Nếu có trademark, dừng ngay. Đây là bộ lọc đầu tiên, không phải bước cuối cùng.</div>
+  </div>
+</div>
+</section>
+
+<div class="section-sep"></div>
+
+<!-- ══ PHẦN 6: ANGLE ══ -->
+<section id="s7" data-label="Angle">
+<div class="slide">
+  <div class="eyebrow">Phần 06 — Angle</div>
+  <h2 class="title-lg">Angle —<br><span class="accent-blue">góc độ bán hàng</span></h2>
+  <p class="body-text">Cùng một sản phẩm, angle khác nhau = kết quả khác nhau. Đây là thứ phân biệt creative convert vs creative không ai click.</p>
+
+  <div class="insight" style="margin-top:40px; max-width:100%;">
+    <div class="insight-label">Định nghĩa</div>
+    <div class="insight-text">Angle là góc độ tiếp cận sản phẩm — bạn chọn nhấn vào khía cạnh nào của sản phẩm để nói chuyện với một nhóm khách hàng cụ thể. Cùng sản phẩm, angle khác nhau = nhắm tới người khác nhau, với lý do mua khác nhau.</div>
+  </div>
+
+  <!-- Angle types -->
+  <div style="margin-top:48px;">
+    <div style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--muted); letter-spacing:0.12em; text-transform:uppercase; margin-bottom:20px;">Các angle khiến khách hàng bỏ tiền ra</div>
+
+    <div style="display:flex; flex-direction:column; gap:2px;">
+
+      <div style="display:grid; grid-template-columns:160px 1fr; gap:0; background:var(--surface); border:1px solid var(--rule); border-left:3px solid var(--red); transition:background 0.15s;" onmouseover="this.style.background='var(--surface2)'" onmouseout="this.style.background='var(--surface)'">
+        <div style="padding:24px 20px; border-right:1px solid var(--rule);">
+          <div style="font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:700; color:var(--red);">Pain</div>
+          <div style="font-size:11px; color:var(--muted); margin-top:4px; font-family:'JetBrains Mono',monospace;">Nỗi đau</div>
+        </div>
+        <div style="padding:24px 24px;">
+          <div style="font-size:14px; color:rgba(226,232,240,0.75); line-height:1.7; margin-bottom:10px;">Nhắm vào vấn đề khách đang chịu đựng. Hook mạnh nhất — vì người đang đau luôn muốn thoát khỏi nỗi đau đó.</div>
+          <div style="font-size:12px; color:var(--muted); font-style:italic;">"Đau lưng mỗi sáng thức dậy?" · "Mất ngủ liên tục 3 tháng nay?" · "Tóc rụng ngày càng nhiều?"</div>
+        </div>
+      </div>
+
+      <div style="display:grid; grid-template-columns:160px 1fr; gap:0; background:var(--surface); border:1px solid var(--rule); border-left:3px solid var(--amber); transition:background 0.15s;" onmouseover="this.style.background='var(--surface2)'" onmouseout="this.style.background='var(--surface)'">
+        <div style="padding:24px 20px; border-right:1px solid var(--rule);">
+          <div style="font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:700; color:var(--amber);">Desire</div>
+          <div style="font-size:11px; color:var(--muted); margin-top:4px; font-family:'JetBrains Mono',monospace;">Khao khát</div>
+        </div>
+        <div style="padding:24px 24px;">
+          <div style="font-size:14px; color:rgba(226,232,240,0.75); line-height:1.7; margin-bottom:10px;">Nhắm vào thứ khách muốn đạt được. Không nói về vấn đề — nói về kết quả lý tưởng họ mơ đến.</div>
+          <div style="font-size:12px; color:var(--muted); font-style:italic;">"Da trắng sáng tự nhiên trong 30 ngày" · "Cơ bụng 6 múi không cần phòng gym"</div>
+        </div>
+      </div>
+
+      <div style="display:grid; grid-template-columns:160px 1fr; gap:0; background:var(--surface); border:1px solid var(--rule); border-left:3px solid var(--blue); transition:background 0.15s;" onmouseover="this.style.background='var(--surface2)'" onmouseout="this.style.background='var(--surface)'">
+        <div style="padding:24px 20px; border-right:1px solid var(--rule);">
+          <div style="font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:700; color:var(--blue);">Curiosity</div>
+          <div style="font-size:11px; color:var(--muted); margin-top:4px; font-family:'JetBrains Mono',monospace;">Tò mò</div>
+        </div>
+        <div style="padding:24px 24px;">
+          <div style="font-size:14px; color:rgba(226,232,240,0.75); line-height:1.7; margin-bottom:10px;">Tạo ra khoảng trống thông tin — khách phải click để biết tiếp. Hiệu quả đặc biệt với sản phẩm có mechanism thú vị hoặc lạ.</div>
+          <div style="font-size:12px; color:var(--muted); font-style:italic;">"Loại lá cây này giúp đàn ông ngủ ngon hơn Melatonin?" · "Lý do bác sĩ Mỹ không muốn bạn biết điều này"</div>
+        </div>
+      </div>
+
+      <div style="display:grid; grid-template-columns:160px 1fr; gap:0; background:var(--surface); border:1px solid var(--rule); border-left:3px solid var(--green); transition:background 0.15s;" onmouseover="this.style.background='var(--surface2)'" onmouseout="this.style.background='var(--surface)'">
+        <div style="padding:24px 20px; border-right:1px solid var(--rule);">
+          <div style="font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:700; color:var(--green);">Social Proof</div>
+          <div style="font-size:11px; color:var(--muted); margin-top:4px; font-family:'JetBrains Mono',monospace;">Bằng chứng xã hội</div>
+        </div>
+        <div style="padding:24px 24px;">
+          <div style="font-size:14px; color:rgba(226,232,240,0.75); line-height:1.7; margin-bottom:10px;">Dùng người thật, kết quả thật để kéo khách. "Nếu người khác làm được, mình cũng làm được." Mạnh nhất khi target đúng demographic.</div>
+          <div style="font-size:12px; color:var(--muted); font-style:italic;">"500,000 người Mỹ đã dùng thứ này để ngủ ngon hơn" · "Mẹ 3 con giảm 12kg trong 8 tuần"</div>
+        </div>
+      </div>
+
+      <div style="display:grid; grid-template-columns:160px 1fr; gap:0; background:var(--surface); border:1px solid var(--rule); border-left:3px solid var(--purple); transition:background 0.15s;" onmouseover="this.style.background='var(--surface2)'" onmouseout="this.style.background='var(--surface)'">
+        <div style="padding:24px 20px; border-right:1px solid var(--rule);">
+          <div style="font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:700; color:var(--purple);">Us vs Them</div>
+          <div style="font-size:11px; color:var(--muted); margin-top:4px; font-family:'JetBrains Mono',monospace;">Đối lập</div>
+        </div>
+        <div style="padding:24px 24px;">
+          <div style="font-size:14px; color:rgba(226,232,240,0.75); line-height:1.7; margin-bottom:10px;">Tạo ra ranh giới giữa "người dùng sản phẩm này" và "người chưa biết đến nó". Xây dựng identity cho khách — họ muốn thuộc về nhóm thông minh hơn.</div>
+          <div style="font-size:12px; color:var(--muted); font-style:italic;">"Trong khi người khác đang uống thuốc chemical, bạn có thể dùng cách này…"</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="warning" style="margin-top:32px; max-width:100%;">
+    <div class="warning-label">Lưu ý quan trọng</div>
+    <div class="warning-text">1 sản phẩm nên test nhiều angle khác nhau. Không có angle nào đúng tuyệt đối — angle nào convert thì đó là angle đúng với audience của bạn. Test, đọc data, double down vào angle win.</div>
+  </div>
+</div>
+</section>
+
+<div class="section-sep"></div>
+
+<!-- ══ END ══ -->
+<section id="s8" data-label="Kết thúc">
+<div class="hero-slide" style="text-align:center; align-items:center;">
+  <div class="eyebrow" style="justify-content:center;">Buổi 03 — Kết thúc</div>
+  <h2 class="title-lg">Hẹn gặp lại<br><span class="accent-blue">buổi sau</span></h2>
+  <div style="margin-top:40px; font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--muted); letter-spacing:0.08em;">
+    Ecom Hater K3 · Quang Vinh Ecom
+  </div>
+</div>
+</section>
+
+<script>
+const progressBar = document.getElementById('progress');
+window.addEventListener('scroll', () => {
+  const total = document.body.scrollHeight - window.innerHeight;
+  progressBar.style.width = (window.scrollY / total * 100) + '%';
+});
+const sections = document.querySelectorAll('section[id]');
+const dotsContainer = document.getElementById('navDots');
+sections.forEach((sec) => {
+  const dot = document.createElement('div');
+  dot.className = 'nav-dot';
+  dot.title = sec.dataset.label || '';
+  dot.addEventListener('click', () => sec.scrollIntoView({ behavior: 'smooth' }));
+  dotsContainer.appendChild(dot);
+});
+const dots = document.querySelectorAll('.nav-dot');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const idx = Array.from(sections).indexOf(entry.target);
+      dots.forEach(d => d.classList.remove('active'));
+      if (dots[idx]) dots[idx].classList.add('active');
+    }
+  });
+}, { threshold: 0.4 });
+sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
